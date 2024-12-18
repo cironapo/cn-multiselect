@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/multiselect.esm.js"></script>
+    <script nomodule src="/build/multiselect.js"></script>
+
+    <style>
+      body{
+        font-size: 16px;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .wrapper{
+        width: 800px !important;
+      }
+      .form-element{
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      cn-multiselect{
+        --cn-multiselect-font: Arial;
+        --cn-multiselect-font-size: 24px;
+        --cn-multiselect-border-radius: 0px;
+        --cn-multiselect-popup-width: 500px;
+        --cn-multiselect-popup-height: 500px;
+        /*--cn-multiselect-background-color-selected-option: green;
+        --cn-multiselect-border-color-selected-option: green;
+        --cn-multiselect-color-selected-option: #cccccc;
+        --cn-multiselect-background-color-selected-checkbox: green;
+        --cn-multiselect-border-color-selected-checkbox: green;
+        --cn-multiselect-border-color-checkbox: green;
+
+        --cn-multiselect-font: "Arial";
+        --cn-multiselect-font-size: 34px;
+        --cn-multiselect-border-size: 1px;
+        --cn-multiselect-border-radius: 5px;
+
+        --cn-multiselect-container-background: #cccccc67;
+        --cn-multiselect-popup-width: 600px;
+        --cn-multiselect-popup-height: 600px;
+        --cn-multiselect-popup-header-color: #131313;*/
+
+      }
+    </style>
+  </head>
+  <body>
+    <!--<my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>-->
+
+    <div class="wrapper">
+      <h5>Seleziona opzioni</h5>
+      <form id="form">
+          <div>
+            <input class="form-element" type="text" name="formdata[input]" value="esempio" />
+          </div>
+          <div>
+            <select class="form-element" name="formdata[multiselect][]" multiple>
+              <option value="1">Mario rossi</option>
+              <option value="2">Ciro Napolitano</option>
+            </select>
+          </div>
+            <cn-multiselect
+              id="custom-select"
+              placeholder="ciaone"
+              placeholder-search="Ricerca..."
+              search="false"
+              popup="false"
+              max-selected-items="0"
+              popup-title="Seleziona opzione"
+              name="formdata[custom-multiselect][]"></cn-multiselect>
+        </form>
+    </div>
+    <div clas="actions">
+      <h5>Azioni</h5>
+      <button id="update-items">Update items</button>
+      <button id="reset-items">reset items</button>
+      <button id="popup-mode">enable popup mode</button>
+      <button id="search-mode">enable search mode</button>
+      <button id="disabled-mode">disabled</button>
+      <button id="get-form">get form</button>
+    </div>
+
+
+
+    <!--<cn-multiselect></cn-multiselect>-->
+
+
+    <script>
+      function init(){
+        const custom = document.getElementById('custom-select');
+
+        const options = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21].map(item => {
+          if( item == 3 ){
+            return {
+              key: item,
+              value: `valore bellissimo aahahahahah ahahah ahhha ahahah ahhaha ahahah`,
+              style: {
+                backgroundColor: 'red',
+                borderColor: 'red',
+                color: '#000000'
+              }
+            }
+          }
+          return {
+            key: item,
+            value: `valore ${item} bellissimo`
+          }
+        })
+
+        custom.options = options;
+        custom.disabledItems = [1,2];
+        custom.selected = [8,9,1,2,4,5];
+        custom.addEventListener('changeValues',function(event){
+            console.log(event.detail);
+        });
+
+        custom.addEventListener('clickedSelectedItem',function(event){
+          console.log(event.detail);
+        });
+
+        custom.addEventListener('selectedItem',function(event){
+          console.log(event.detail);
+        });
+        custom.addEventListener('deselectedItem',function(event){
+          console.log(event.detail);
+        });
+      }
+
+
+
+      init();
+      document.querySelector('#update-items').addEventListener('click',function(){
+        const custom = document.getElementById('custom-select');
+        custom.options = [
+          {
+            key: 1,
+            value: "CIAONE"
+          }
+        ]
+      })
+      document.querySelector('#popup-mode').addEventListener('click',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.popup = !custom.popup;
+        if( custom.popup ){
+          event.target.innerHTML = 'disable popup mode';
+        }else{
+          event.target.innerHTML = 'enable popup mode';
+        }
+      })
+
+      document.querySelector('#search-mode').addEventListener('click',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.search = !custom.search;
+        if( custom.search ){
+          event.target.innerHTML = 'disable search mode';
+        }else{
+          event.target.innerHTML = 'enable search mode';
+        }
+      })
+
+      document.querySelector('#disabled-mode').addEventListener('click',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.disabled = !custom.disabled;
+        if( custom.disabled ){
+          event.target.innerHTML = 'enabled';
+        }else{
+          event.target.innerHTML = 'disabled';
+        }
+      })
+
+      document.querySelector('#reset-items').addEventListener('click',function(){
+        init()
+      })
+
+
+      document.querySelector('#get-form').addEventListener('click',function(event){
+        const form = document.getElementById('form');
+
+        const formData = new FormData(form);
+
+        console.log("~~ current form state ~~")
+        for (let entry of formData.entries()) {
+          console.log(`${entry[0]}: ${entry[1]}`);
+        }
+      })
+
+
+    </script>
+  </body>
+</html>
