@@ -521,6 +521,11 @@
       }
 
       &.popup{
+        &.bulks{
+          .content-options{
+            height: calc(100% - 2em);
+          }
+        }
         position: fixed;
         z-index: 3;
         width: var(--cn-multiselect-popup-width);
@@ -579,9 +584,7 @@
           }
         }
 
-        .content-options{
-          height: calc(100% - 2em);
-        }
+
         .list-options{
           max-height: 100%;
           height: 100%;

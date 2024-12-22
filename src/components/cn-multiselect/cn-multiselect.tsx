@@ -1,4 +1,4 @@
-import { Component, EventEmitter, h, Prop, State, Watch, Event, Listen, Element, AttachInternals } from '@stencil/core';
+import { Component, EventEmitter, h, Prop, State, Watch, Event, Listen, Element, AttachInternals, Method } from '@stencil/core';
 export type Option = {
   key: any;
   value: string;
@@ -21,26 +21,34 @@ export type Data = {
 })
 export class CnMultiselect {
   @Prop() name: string;
+
+
+  /** (optional) enable select/deselect all items buttons */
+  @Prop({ mutable: true }) selectAll: boolean = true;
+
   /** (optional) select all text */
   @Prop() selectAllText: string = 'Select all';
-   /** (optional) deselect all text */
+
+  /** (optional) deselect all text */
   @Prop() deselectAllText: string = 'Deselect all';
+
+
 
   @AttachInternals() internals: ElementInternals;
 
   @Element() el: HTMLElement;
 
-  /** (optional) event on change values */
-  @Event() changeValues: EventEmitter<any[]>;
+  /** (optional) event on change selected options. Return the option keys. */
+  @Event() changeValue: EventEmitter<any[]>;
 
-  /** (optional) event on click on selected item */
+  /** (optional) event triggered when click on selected option */
   @Event() clickedSelectedItem: EventEmitter<Option>;
 
-  /** (optional) event on seleted item*/
-  @Event() selectedItem: EventEmitter<Option>;
+  /** (optional) event on seleted option*/
+  @Event() selectedOption: EventEmitter<Option>;
 
-  /** (optional) event on deseleted item*/
-  @Event() deselectedItem: EventEmitter<Option>;
+  /** (optional) event on deseleted option*/
+  @Event() deselectedOption: EventEmitter<Option>;
 
 
 
@@ -141,26 +149,30 @@ export class CnMultiselect {
   }
 
 
-  /*formAssociatedCallback(form) {
-
-  }*/
-
-  selectAllItems(){
-    this.el.shadowRoot.querySelectorAll('.cn-option').forEach( item => {
-      if( !item.querySelector('input').checked ) {
-        item.querySelector('input').click();
-      }
-    })
+  /**
+   * Select all items
+   */
+  @Method()
+  async selectAllItems(){
+    let selected = this._options.map( item => item.key).filter( key => {
+      return !this._disabled_items.includes(key);
+    });
+    if( this.maxSelectedItems && this.maxSelectedItems > 0 ){
+        selected = selected.slice(0, this.maxSelectedItems)
+    }
+    this._selected = [...selected]
     this.emitChangeValues();
+    return;
   }
 
-  deselectAllItems(){
-    this.el.shadowRoot.querySelectorAll('.cn-option').forEach( item => {
-      if( item.querySelector('input').checked ) {
-        item.querySelector('input').click();
-      }
-    })
+  /**
+  * Deselect all items
+  */
+  @Method()
+  async deselectAllItems(){
+    this._selected = []
     this.emitChangeValues();
+    return;
   }
 
   /*selectInput!: HTMLSelectElement;
@@ -189,6 +201,9 @@ export class CnMultiselect {
     }
     if( this.search ){
       open_options += " searchable";
+    }
+    if( this.selectAll ){
+      open_options += ' bulks';
     }
     return (
 
@@ -220,10 +235,12 @@ export class CnMultiselect {
                     </div>
                   </div>
                 </div>
+                { this.selectAll?
                 <div class="bulks">
                   <button onClick={() => this.selectAllItems()}>{this.selectAllText}</button>
                   <button onClick={() => this.deselectAllItems()}>{this.deselectAllText}</button>
                 </div>
+                :''}
               </div>
             </div>
         </div>
@@ -242,7 +259,7 @@ export class CnMultiselect {
     }
     const index = this._selected.findIndex( item => item == option.key);
     if( index >= 0){
-      this.deselectedItem.emit(option);
+      this.deselectedOption.emit(option);
       this._selected.splice(index,1);
       this._selected = [...this._selected];
     }
@@ -482,7 +499,6 @@ export class CnMultiselect {
   }
 
   toggle(option: Option, event: any): void{
-
     if( this._disabled_items && this._disabled_items.length > 0 && this._disabled_items.includes(option.key) ){
       if( event.target.checked  ){
         event.target.checked = false;
@@ -497,20 +513,20 @@ export class CnMultiselect {
     if( !event.target.checked ){
       const index = this._selected.findIndex( item => item == option.key);
       if( index >= 0){
-        this.deselectedItem.emit(option);
+        this.selectedOption.emit(option);
         this._selected.splice(index,1);
         this._selected = [...this._selected];
       }
     }else{
       if( !this.multiple ){
-        this.selectedItem.emit(option);
+        this.selectedOption.emit(option);
         this._selected = [option.key]
       }else{
         if( this.maxSelectedItems > 0 && this._selected.length == this.maxSelectedItems ){
           event.target.checked = false;
           changed = false;
         }else{
-          this.selectedItem.emit(option);
+          this.selectedOption.emit(option);
           this._selected = [...this._selected,option.key]
         }
 
@@ -524,7 +540,7 @@ export class CnMultiselect {
 
   emitChangeValues(){
     this._internals();
-    this.changeValues.emit(this._selected);
+    this.changeValue.emit(this._selected);
   }
 
   _internals(){

@@ -69,11 +69,10 @@
               disabled-items="[1,2,3]"
               selected="[4]"
               title="ciaone"
+
               placeholder-search="Ricerca..."
               search="false"
               popup="false"
-
-              max-selected-items="1"
               popup-title="Seleziona opzione"
               name="formdata[custom-multiselect][]"></cn-multiselect>
         </form>
@@ -86,6 +85,8 @@
       <button id="search-mode">enable search mode</button>
       <button id="disabled-mode">disabled</button>
       <button id="get-form">get form</button>
+      <button id="select-all">select all item</button>
+      <button id="bulks">toggle bluks</button>
     </div>
 
 
@@ -192,6 +193,21 @@
         }
       })
 
+      document.querySelector('#select-all').addEventListener('click',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.selectAllItems().then((res)=>{
+        console.log(res)
+      });
+
+
+
+      })
+
+      document.querySelector('#bulks').addEventListener('click',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.selectAll = !custom.selectAll;
+        console.log(custom);
+      });
 
     </script>
   </body>

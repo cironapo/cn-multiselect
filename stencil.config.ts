@@ -5,8 +5,7 @@ export const config: Config = {
   namespace: 'multiselect',
   outputTargets: [
     {
-      type: 'docs-readme',
-      dir: 'docs/docs', // Directory dove verrà salvata la documentazione
+      type: 'docs-readme'
     },
     {
       type: 'dist',

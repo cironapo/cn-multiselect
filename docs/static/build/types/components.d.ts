@@ -10,6 +10,10 @@ export { Option } from "./components/cn-multiselect/cn-multiselect";
 export namespace Components {
     interface CnMultiselect {
         /**
+          * Deselect all items
+         */
+        "deselectAllItems": () => Promise<void>;
+        /**
           * (optional) deselect all text
          */
         "deselectAllText": string;
@@ -51,6 +55,14 @@ export namespace Components {
          */
         "search": boolean;
         /**
+          * (optional) enable select/deselect all items buttons
+         */
+        "selectAll": boolean;
+        /**
+          * Select all items
+         */
+        "selectAllItems": () => Promise<void>;
+        /**
           * (optional) select all text
          */
         "selectAllText": string;
@@ -70,10 +82,10 @@ export interface CnMultiselectCustomEvent<T> extends CustomEvent<T> {
 }
 declare global {
     interface HTMLCnMultiselectElementEventMap {
-        "changeValues": any[];
+        "changeValue": any[];
         "clickedSelectedItem": Option;
-        "selectedItem": Option;
-        "deselectedItem": Option;
+        "selectedOption": Option;
+        "deselectedOption": Option;
     }
     interface HTMLCnMultiselectElement extends Components.CnMultiselect, HTMLStencilElement {
         addEventListener<K extends keyof HTMLCnMultiselectElementEventMap>(type: K, listener: (this: HTMLCnMultiselectElement, ev: CnMultiselectCustomEvent<HTMLCnMultiselectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -117,21 +129,21 @@ declare namespace LocalJSX {
         "multiple"?: boolean;
         "name"?: string;
         /**
-          * (optional) event on change values
+          * (optional) event on change selected options. Return the option keys.
          */
-        "onChangeValues"?: (event: CnMultiselectCustomEvent<any[]>) => void;
+        "onChangeValue"?: (event: CnMultiselectCustomEvent<any[]>) => void;
         /**
-          * (optional) event on click on selected item
+          * (optional) event triggered when click on selected option
          */
         "onClickedSelectedItem"?: (event: CnMultiselectCustomEvent<Option>) => void;
         /**
-          * (optional) event on deseleted item
+          * (optional) event on deseleted option
          */
-        "onDeselectedItem"?: (event: CnMultiselectCustomEvent<Option>) => void;
+        "onDeselectedOption"?: (event: CnMultiselectCustomEvent<Option>) => void;
         /**
-          * (optional) event on seleted item
+          * (optional) event on seleted option
          */
-        "onSelectedItem"?: (event: CnMultiselectCustomEvent<Option>) => void;
+        "onSelectedOption"?: (event: CnMultiselectCustomEvent<Option>) => void;
         /**
           * (optional) options
          */
@@ -152,6 +164,10 @@ declare namespace LocalJSX {
           * (optional) enable search
          */
         "search"?: boolean;
+        /**
+          * (optional) enable select/deselect all items buttons
+         */
+        "selectAll"?: boolean;
         /**
           * (optional) select all text
          */

@@ -15,20 +15,22 @@ export type Data = {
 };
 export declare class CnMultiselect {
     name: string;
+    /** (optional) enable select/deselect all items buttons */
+    selectAll: boolean;
     /** (optional) select all text */
     selectAllText: string;
     /** (optional) deselect all text */
     deselectAllText: string;
     internals: ElementInternals;
     el: HTMLElement;
-    /** (optional) event on change values */
-    changeValues: EventEmitter<any[]>;
-    /** (optional) event on click on selected item */
+    /** (optional) event on change selected options. Return the option keys. */
+    changeValue: EventEmitter<any[]>;
+    /** (optional) event triggered when click on selected option */
     clickedSelectedItem: EventEmitter<Option>;
-    /** (optional) event on seleted item*/
-    selectedItem: EventEmitter<Option>;
-    /** (optional) event on deseleted item*/
-    deselectedItem: EventEmitter<Option>;
+    /** (optional) event on seleted option*/
+    selectedOption: EventEmitter<Option>;
+    /** (optional) event on deseleted option*/
+    deselectedOption: EventEmitter<Option>;
     _disabled_items: any[];
     /** (optional) disabled items  */
     disabledItems: any[] | string;
@@ -62,8 +64,14 @@ export declare class CnMultiselect {
     selectedWatcher(newValue: string[] | string): void;
     clickOutsideHandler(ev: any): void;
     componentWillLoad(): void;
-    selectAllItems(): void;
-    deselectAllItems(): void;
+    /**
+     * Select all items
+     */
+    selectAllItems(): Promise<void>;
+    /**
+    * Deselect all items
+    */
+    deselectAllItems(): Promise<void>;
     render(): any;
     clickItem(option: Option, event: any): void;
     deselected(option: Option, event: any): void;
