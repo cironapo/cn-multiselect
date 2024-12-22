@@ -17,11 +17,14 @@ export type Data = {
   tag: 'cn-multiselect',
   styleUrl: 'cn-multiselect.scss',
   formAssociated: true,
-  shadow: true,
-  //assetsDirs: ['assets']
+  shadow: true
 })
 export class CnMultiselect {
   @Prop() name: string;
+  /** (optional) select all text */
+  @Prop() selectAllText: string = 'Select all';
+   /** (optional) deselect all text */
+  @Prop() deselectAllText: string = 'Deselect all';
 
   @AttachInternals() internals: ElementInternals;
 
@@ -40,26 +43,28 @@ export class CnMultiselect {
   @Event() deselectedItem: EventEmitter<Option>;
 
 
-  /** (optional) disabled items  */
+
   @State() _disabled_items: any[] = [];
-  @Prop({ mutable: true }) disabledItems: any[] = [];
+  /** (optional) disabled items  */
+  @Prop() disabledItems: any[] | string;
+
 
   @State() _options: Option[] = [];
   /** (optional) options */
   @Prop({ mutable: true }) options: Option[] | string;
 
 
-  @State() _selected: string[];
+  @State() _selected: any[];
 
   /** (optional) selected values */
-  @Prop({ mutable: true }) selected: string[] | string;
+  @Prop({ mutable: true }) selected: any[] | string;
 
 
 
-  /** (optional) placeholder */
-  @Prop({reflect: false}) placeholder: string = 'Select option...';
+  /** (optional) title */
+  @Prop() title: string = 'Select option...';
   /** (optional) search's placeholder */
-  @Prop({reflect: false}) placeholderSearch: string = 'Search...';
+  @Prop() placeholderSearch: string = 'Search...';
   @State() open: boolean = false;
 
   /** (optional) disable multiselect */
@@ -94,8 +99,10 @@ export class CnMultiselect {
       this._options = newValue;
     }
   }
+
   @Watch('disabledItems')
   disabledItemsWatcher(newValue: any[] | string) {
+    //console.log(newValue,'disabled-items');
     if (typeof newValue === 'string') {
       this._disabled_items = JSON.parse(newValue);
     }
@@ -106,7 +113,7 @@ export class CnMultiselect {
 
   @Watch('selected')
   selectedWatcher(newValue: string[] | string) {
-
+    //console.log(newValue,'selected');
     if (typeof newValue === 'string') {
       this._selected = JSON.parse(newValue);
     }
@@ -127,12 +134,10 @@ export class CnMultiselect {
   }
 
   componentWillLoad() {
+    this.disabledItemsWatcher(this.disabledItems);
     this.optionsWatcher(this.options);
     this.selectedWatcher(this.selected);
-    this.disabledItemsWatcher(this.disabledItems);
     this._internals();
-    //this.internals.setFormValue("a default value");
-    //console.log(this.internals.form);
   }
 
 
@@ -171,9 +176,9 @@ export class CnMultiselect {
   }*/
 
   render() {
-    console.log('rendering');
+    //console.log('rendering');
     const selected = this.getSelectedOptions();
-    console.log(this._selected);
+    //console.log(this._selected);
     const options = this.getOptions();
     const css_class = this.disabled?"cn-multiselect-wrapper disabled":"cn-multiselect-wrapper";
     let open_options =  this.open?'options open':'options';
@@ -216,8 +221,8 @@ export class CnMultiselect {
                   </div>
                 </div>
                 <div class="bulks">
-                  <button onClick={() => this.selectAllItems()}>Seleziona tutti</button>
-                  <button onClick={() => this.deselectAllItems()}>deseleziona tutti</button>
+                  <button onClick={() => this.selectAllItems()}>{this.selectAllText}</button>
+                  <button onClick={() => this.deselectAllItems()}>{this.deselectAllText}</button>
                 </div>
               </div>
             </div>
@@ -274,7 +279,7 @@ export class CnMultiselect {
 
 
     }
-    return <div class="cn-no-values">{this.placeholder}</div>;
+    return <div class="cn-no-values">{this.title}</div>;
   }
 
   private getOptions(){
@@ -285,7 +290,7 @@ export class CnMultiselect {
             return '';
         }else{
           const checked =  this._selected && this._selected.includes(option.key)
-          const disabled = this._disabled_items.includes(option.key)
+          const disabled = this._disabled_items && this._disabled_items.includes(option.key)
           return <div class={disabled?"cn-option disabled":"cn-option"}>
             <label class="pure-material-checkbox" >
             {checked
@@ -478,7 +483,7 @@ export class CnMultiselect {
 
   toggle(option: Option, event: any): void{
 
-    if( this._disabled_items.length > 0 && this._disabled_items.includes(option.key) ){
+    if( this._disabled_items && this._disabled_items.length > 0 && this._disabled_items.includes(option.key) ){
       if( event.target.checked  ){
         event.target.checked = false;
       }else{
@@ -524,9 +529,12 @@ export class CnMultiselect {
 
   _internals(){
     const formdata = new FormData;
-    this._selected.forEach( item =>{
-      formdata.append(this.name,item);
-    });
+    if( this._selected && this._selected.length > 0){
+      this._selected.forEach( item =>{
+        formdata.append(this.name,item);
+      });
+    }
+
     this.internals.setFormValue(formdata);
   }
 

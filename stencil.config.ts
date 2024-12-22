@@ -5,8 +5,17 @@ export const config: Config = {
   namespace: 'multiselect',
   outputTargets: [
     {
+      type: 'docs-readme',
+      dir: 'docs/docs', // Directory dove verrà salvata la documentazione
+    },
+    {
       type: 'dist',
       esmLoaderPath: '../loader',
+    },
+    {
+      type: 'dist',
+      esmLoaderPath: '../loader',
+      dir: 'docs/static/build',
     },
     {
       type: 'dist-custom-elements',

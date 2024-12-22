@@ -17,7 +17,7 @@
         justify-content: space-between;
       }
       .wrapper{
-        width: 800px !important;
+        width: 1000px !important;
       }
       .form-element{
         width: 100%;
@@ -25,10 +25,10 @@
       }
       cn-multiselect{
         --cn-multiselect-font: Arial;
-        --cn-multiselect-font-size: 24px;
+        /*--cn-multiselect-font-size: 24px;*/
         --cn-multiselect-border-radius: 0px;
-        --cn-multiselect-popup-width: 500px;
-        --cn-multiselect-popup-height: 500px;
+        --cn-multiselect-popup-width: 50%;
+        --cn-multiselect-popup-height: 700px;
         /*--cn-multiselect-background-color-selected-option: green;
         --cn-multiselect-border-color-selected-option: green;
         --cn-multiselect-color-selected-option: #cccccc;
@@ -66,11 +66,14 @@
           </div>
             <cn-multiselect
               id="custom-select"
-              placeholder="ciaone"
+              disabled-items="[1,2,3]"
+              selected="[4]"
+              title="ciaone"
               placeholder-search="Ricerca..."
               search="false"
               popup="false"
-              max-selected-items="0"
+
+              max-selected-items="1"
               popup-title="Seleziona opzione"
               name="formdata[custom-multiselect][]"></cn-multiselect>
         </form>
@@ -111,10 +114,10 @@
             value: `valore ${item} bellissimo`
           }
         })
-
+        //console.log(custom.disabledItems,'qua');
         custom.options = options;
-        custom.disabledItems = [1,2];
-        custom.selected = [8,9,1,2,4,5];
+        //custom.disabledItems = [1,2];
+        //custom.selected = [8,9,1,2,4,5];
         custom.addEventListener('changeValues',function(event){
             console.log(event.detail);
         });

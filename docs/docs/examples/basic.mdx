@@ -1,0 +1,109 @@
+---
+sidebar_position: 1
+---
+
+# Inline mode
+
+### Basic example
+import Preview from '@site/src/components/Preview';
+
+<Preview component={<cn-multiselect
+        selected='["IT","FR"]'
+        title="Select country"
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"},{"key":"DE","value":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        selected='["IT","FR"]'
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Enable search
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        title="Select country"
+        placeholder-search="Search country.."
+        search="true"
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"},{"key":"DE","value":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        search="true"
+        placeholder-search="Search country.."
+        selected='["IT"]'
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Limit max num selectable items
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        max-selected-items="2"
+        title="Select country"
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"},{"key":"DE","value":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        max-selected-items="2"
+        selected='["IT"]'
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Disabled items
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        disabled-items='["ES"]'
+        title="Select country"
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"},{"key":"DE","value":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        disabled-items='["ES"]'
+        selected='["IT"]'
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Popup mode
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        title="Select country"
+        popup="true"
+        popup-title="Countries"
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"},{"key":"DE","value":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        popup="true"
+        popup-title="Countries"
+        selected='["IT"]'
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+</cn-multiselect>`}/>
+
+
+### Custom style
+<Preview
+        id="custom"
+        component={<cn-multiselect
+        selected='["IT"]'
+        title="Select country"
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        id="custom"
+        title="Select country"
+        selected='["IT"]'
+        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+</cn-multiselect>`}
+   style={`cn-multiselect{
+      --cn-multiselect-background-color-selected-option: #2e8555;
+      --cn-multiselect-border-color-selected-option: #2e8555;
+      --cn-multiselect-border-radius: 5px;
+      --cn-multiselect-background-color-selected-checkbox: #2e8555;
+      --cn-multiselect-border-color-selected-checkbox: #2e8555;
+      --cn-multiselect-border-color: #2e855554;
+      --cn-multiselect-border-color-checkbox: #2e855554;
+      --cn-multiselect-bulk-actions-button-background-hover: #2e8555;
+      --cn-multiselect-font: Verdana;
+      --cn-multiselect-font-size: 22px;
+}`}
+
+/>
