@@ -594,7 +594,6 @@ export class CnMultiselect {
 
       }
     }
-
     this.internals.setFormValue(formdata);
   }
 
