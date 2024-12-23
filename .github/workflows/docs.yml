@@ -26,6 +26,9 @@ jobs:
       - name: Create Stencil Docs
         run: npm run build-docs
 
+      - name: List assets
+        run: ls -la docs/static
+
       # Install dependencies
       - name: Install Docusaurus Dependencies
         run: cd docs && npm ci
