@@ -52,7 +52,7 @@ const config: Config = {
   ],
   scripts: [
     {
-      src: 'build/multiselect/multiselect.esm.js',
+      src: '/cn-multiselect/build/multiselect/multiselect.esm.js',
       type: 'module'
     }
 
