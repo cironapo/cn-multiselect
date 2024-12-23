@@ -27,7 +27,7 @@ jobs:
         run: npm run build-docs
 
       - name: List assets
-        run: ls -la docs/static
+        run: ls -la docs/static/build
 
       # Install dependencies
       - name: Install Docusaurus Dependencies
