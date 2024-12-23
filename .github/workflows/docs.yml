@@ -20,16 +20,19 @@ jobs:
         with:
           node-version: '20' # or the version specified by Docusaurus
 
+      - name: Install Stencil Dependencies
+        run: npm ci
+
+      - name: Create Stencil Docs
+        run: npm run build-docs
+
       # Install dependencies
-      - name: Install Dependencies
+      - name: Install Docusaurus Dependencies
         run: cd docs && npm ci
 
       # Build the site
       - name: Build Docusaurus site
         run: cd docs && npm run build
-
-      - name: Show build
-        run: cd docs && ls -la
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
