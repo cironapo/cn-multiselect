@@ -54,6 +54,10 @@ export namespace Components {
          */
         "popupTitle": string;
         /**
+          * (optional) preserve order in selected items respect the initial order
+         */
+        "preserveOrder": boolean;
+        /**
           * (optional) enable search
          */
         "search": boolean;
@@ -169,6 +173,10 @@ declare namespace LocalJSX {
           * (optional) popup title
          */
         "popupTitle"?: string;
+        /**
+          * (optional) preserve order in selected items respect the initial order
+         */
+        "preserveOrder"?: boolean;
         /**
           * (optional) enable search
          */

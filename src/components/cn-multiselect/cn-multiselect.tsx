@@ -29,6 +29,9 @@ export class CnMultiselect {
   /** (optional) enable select/deselect all items buttons */
   @Prop({ mutable: true }) selectAll: boolean = false;
 
+  /** (optional) preserve order in selected items respect the initial order */
+  @Prop({ mutable: true }) preserveOrder: boolean = false;
+
   /** (optional) select all text */
   @Prop() selectAllText: string = 'Select all';
 
@@ -274,30 +277,57 @@ export class CnMultiselect {
   private getSelectedOptions() {
 
     if( this._selected && this._selected.length > 0 && this._options && this._options.length > 0 ){
-        return this._selected.map(option=>{
-          const selected = this._options.find( item => item.value == option);
-          if( selected ){
-            const _style = selected.style;
-            let style = {};
-            if( _style ){
-              if( _style.backgroundColor ){
-                style['background-color'] = _style.backgroundColor;
-              }
-              if( _style.color ){
-                style['color'] = _style.color;
-              }
-              if( _style.borderColor ){
-                style['border-color'] = _style.borderColor;
-              }
-            }
+        if( this.preserveOrder ){
+          return this._options.map( option => {
+            if( this._selected.includes(option.value)){
 
-            return <div class="cn-selected-option" style={style}  data-key={selected.value} draggable={true} onDragStart={event => this.drag(event)} onClick={event => this.clickItem(selected,event)}>
-              <span>{selected.label}</span>
-              <span class="cn-btn-delete-option" onClick={event => this.deselected(selected,event)}></span>
-            </div>
+              const _style = option.style;
+              let style = {};
+              if( _style ){
+                if( _style.backgroundColor ){
+                  style['background-color'] = _style.backgroundColor;
+                }
+                if( _style.color ){
+                  style['color'] = _style.color;
+                }
+                if( _style.borderColor ){
+                  style['border-color'] = _style.borderColor;
+                }
+              }
+
+              return <div class="cn-selected-option" style={style}  data-key={option.value} draggable={true} onDragStart={event => this.drag(event)} onClick={event => this.clickItem(option,event)}>
+                <span>{option.label}</span>
+                <span class="cn-btn-delete-option" onClick={event => this.deselected(option,event)}></span>
+              </div>
             }
-          }
-        )
+          })
+
+        }else{
+          return this._selected.map(option=>{
+            const selected = this._options.find( item => item.value == option);
+            if( selected ){
+              const _style = selected.style;
+              let style = {};
+              if( _style ){
+                if( _style.backgroundColor ){
+                  style['background-color'] = _style.backgroundColor;
+                }
+                if( _style.color ){
+                  style['color'] = _style.color;
+                }
+                if( _style.borderColor ){
+                  style['border-color'] = _style.borderColor;
+                }
+              }
+
+              return <div class="cn-selected-option" style={style}  data-key={selected.value} draggable={true} onDragStart={event => this.drag(event)} onClick={event => this.clickItem(selected,event)}>
+                <span>{selected.label}</span>
+                <span class="cn-btn-delete-option" onClick={event => this.deselected(selected,event)}></span>
+              </div>
+              }
+            }
+          )
+      }
 
 
     }
@@ -551,9 +581,18 @@ export class CnMultiselect {
   _internals(){
     const formdata = new FormData;
     if( this._selected && this._selected.length > 0){
-      this._selected.forEach( item =>{
-        formdata.append(this.name,item);
-      });
+      if( this.preserveOrder ){
+        this._options.forEach( item =>{
+          if( this._selected.includes(item.value) ){
+            formdata.append(this.name,item.value);
+          }
+        });
+      }else{
+        this._selected.forEach( item =>{
+          formdata.append(this.name,item);
+        });
+
+      }
     }
 
     this.internals.setFormValue(formdata);

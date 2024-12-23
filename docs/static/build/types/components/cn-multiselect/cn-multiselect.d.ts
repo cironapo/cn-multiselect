@@ -20,6 +20,8 @@ export declare class CnMultiselect {
     name: string;
     /** (optional) enable select/deselect all items buttons */
     selectAll: boolean;
+    /** (optional) preserve order in selected items respect the initial order */
+    preserveOrder: boolean;
     /** (optional) select all text */
     selectAllText: string;
     /** (optional) deselect all text */

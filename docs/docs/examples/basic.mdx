@@ -34,6 +34,21 @@ import Preview from '@site/src/components/Preview';
         options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
 </cn-multiselect>`}/>
 
+### Preserve order
+If you are interessed to preserve order in selection you can set the property **preserve-order** to ***false***.
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        title="Select country"
+        preserve-order="true"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        preserve-order="true"
+        selected='["IT"]'
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>`}/>
+
 ### Enable select/deselect all actions
 <Preview component={<cn-multiselect
         selected='["IT"]'
