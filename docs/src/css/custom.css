@@ -29,5 +29,5 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 .navbar__brand {
-  font-display: none !important;
+  display: none !important;
 }
