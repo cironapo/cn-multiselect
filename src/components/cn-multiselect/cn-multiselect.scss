@@ -540,8 +540,15 @@
         margin-bottom:  calc(-1 * var(--cn-multiselect-popup-height)/2.1); /* Negative half of height. */
         margin-left: calc(-1 * var(--cn-multiselect-popup-width)/2); /* Negative half of width. */
 
+        &.bulks .options-list {
+          max-height: calc(var(--cn-multiselect-popup-height) - 8.2em); /* Altezza con i bottoni */
+        }
+      
+        &:not(.bulks) .options-list {
+          max-height: calc(var(--cn-multiselect-popup-height) - 7em); /* Altezza senza i bottoni */
+        }
+
         .options-list{
-          max-height: calc(var(--cn-multiselect-popup-height) - 8.2em);
           overflow-y: auto;
           height: calc(100vh - 30px);
         }
