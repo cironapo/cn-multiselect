@@ -220,10 +220,7 @@ export class CnMultiselect {
                 ? <div class={this.open?'overlay show':'overlay'}></div>
                 :''
             }
-            <div class="cn-selected-options"  onClick={() => this.toggleOptions()} onDrop={event => this.drop(event)}
-              onDragOver={event => this.allowDrop(event)}
-              onDragEnd={event => this.dragEnd(event)}
-              >
+            <div class="cn-selected-options"  onClick={() => this.toggleOptions()}>
             {selected}
             </div>
             <div class="container-options">
@@ -295,7 +292,7 @@ export class CnMultiselect {
                 }
               }
 
-              return <div class="cn-selected-option" style={style}  data-key={option.value} draggable={true} onDragStart={event => this.drag(event)} onClick={event => this.clickItem(option,event)}>
+              return <div class="cn-selected-option" style={style}  data-key={option.value} onClick={event => this.clickItem(option,event)}>
                 <span>{option.label}</span>
                 <span class="cn-btn-delete-option" onClick={event => this.deselected(option,event)}></span>
               </div>
@@ -320,7 +317,7 @@ export class CnMultiselect {
                 }
               }
 
-              return <div class="cn-selected-option" style={style}  data-key={selected.value} draggable={true} onDragStart={event => this.drag(event)} onClick={event => this.clickItem(selected,event)}>
+              return <div class="cn-selected-option" style={style}  data-key={selected.value} onClick={event => this.clickItem(selected,event)}>
                 <span>{selected.label}</span>
                 <span class="cn-btn-delete-option" onClick={event => this.deselected(selected,event)}></span>
               </div>
