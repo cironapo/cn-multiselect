@@ -1,0 +1,125 @@
+---
+sidebar_position: 1
+---
+
+# Inline mode
+
+### Basic example
+import Preview from '@site/src/components/Preview';
+
+<Preview component={<cn-multiselect
+        selected='["IT","FR"]'
+        title="Select country"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        selected='["IT","FR"]'
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Enable search input
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        title="Select country"
+        placeholder-search="Search country.."
+        search="true"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        search="true"
+        placeholder-search="Search country.."
+        selected='["IT"]'
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Preserve order
+If you are interessed to preserve order in selection you can set the property **preserve-order** to ***false***.
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        title="Select country"
+        preserve-order="true"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        preserve-order="true"
+        selected='["IT"]'
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Enable select/deselect all actions
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        title="Select country"
+        select-all="true"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        selected='["IT"]'
+        title="Select country"
+        select-all="true"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Limit max num selectable items
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        max-selected-items="2"
+        title="Select country"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        max-selected-items="2"
+        selected='["IT"]'
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Disable specific items
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        disabled-items='["ES"]'
+        title="Select country"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        disabled-items='["ES"]'
+        selected='["IT"]'
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Disable multiselection
+You can use cn-multiselect also for generate a select input or radio input.\
+If **multiple** property is ***false*** then select/deselect all actions are not available.
+
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        multiple="false"
+        title="Select country"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        multiple="false"
+        selected='["IT"]'
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>`}/>
+
+### Enable popup mode
+<Preview component={<cn-multiselect
+        selected='["IT"]'
+        title="Select country"
+        popup="true"
+        popup-title="Countries"
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
+</cn-multiselect>}
+      source={`<cn-multiselect
+        title="Select country"
+        popup="true"
+        popup-title="Countries"
+        selected='["IT"]'
+        options='[{"value":"IT", "label":"Italy","style":{"backgroundColor":"orange"}},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>`}/>

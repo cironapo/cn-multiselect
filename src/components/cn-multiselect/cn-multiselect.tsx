@@ -1,7 +1,7 @@
-import { Component, EventEmitter, h, Prop, State, Watch, Event, Listen, Element, AttachInternals } from '@stencil/core';
+import { Component, EventEmitter, h, Prop, State, Watch, Event, Listen, Element, AttachInternals, Method } from '@stencil/core';
 export type Option = {
-  key: any;
-  value: string;
+  value: any;
+  label: string;
   style?: Style;
   data?: Data;
 }
@@ -13,59 +13,78 @@ export type Style = {
 export type Data = {
   [key: string]: any
 }
+/**
+ * **cn-multiselect** is a fantastic web component that allows you to integrate a multiselect feature into your web page.
+ */
 @Component({
   tag: 'cn-multiselect',
   styleUrl: 'cn-multiselect.scss',
   formAssociated: true,
-  shadow: true,
-  //assetsDirs: ['assets']
+  shadow: true
 })
 export class CnMultiselect {
   @Prop() name: string;
+
+
+  /** (optional) enable select/deselect all items buttons */
+  @Prop({ mutable: true }) selectAll: boolean = false;
+
+  /** (optional) preserve order in selected items respect the initial order */
+  @Prop({ mutable: true }) preserveOrder: boolean = false;
+
+  /** (optional) select all text */
+  @Prop() selectAllText: string = 'Select all';
+
+  /** (optional) deselect all text */
+  @Prop() deselectAllText: string = 'Deselect all';
+
+
 
   @AttachInternals() internals: ElementInternals;
 
   @Element() el: HTMLElement;
 
-  /** (optional) event on change values */
-  @Event() changeValues: EventEmitter<any[]>;
+  /** (optional) event on change selected options. Return the option keys. */
+  @Event() changeValue: EventEmitter<any[]>;
 
-  /** (optional) event on click on selected item */
+  /** (optional) event triggered when click on selected option */
   @Event() clickedSelectedItem: EventEmitter<Option>;
 
-  /** (optional) event on seleted item*/
-  @Event() selectedItem: EventEmitter<Option>;
+  /** (optional) event on seleted option*/
+  @Event() selectedOption: EventEmitter<Option>;
 
-  /** (optional) event on deseleted item*/
-  @Event() deselectedItem: EventEmitter<Option>;
+  /** (optional) event on deseleted option*/
+  @Event() deselectedOption: EventEmitter<Option>;
 
-
-  /** (optional) disabled items  */
   @State() _disabled_items: any[] = [];
-  @Prop({ mutable: true }) disabledItems: any[] = [];
+  /** (optional) disabled items  */
+  @Prop() disabledItems: any[] | string;
+
 
   @State() _options: Option[] = [];
   /** (optional) options */
   @Prop({ mutable: true }) options: Option[] | string;
 
 
-  @State() _selected: string[];
+  @State() _selected: any[];
 
   /** (optional) selected values */
-  @Prop({ mutable: true }) selected: string[] | string;
+  @Prop({ mutable: true }) selected: any[] | string;
 
 
 
-  /** (optional) placeholder */
-  @Prop({reflect: false}) placeholder: string = 'Select option...';
+  /** (optional) title */
+  @Prop() title: string = 'Select option...';
   /** (optional) search's placeholder */
-  @Prop({reflect: false}) placeholderSearch: string = 'Search...';
+  @Prop() placeholderSearch: string = 'Search...';
   @State() open: boolean = false;
 
   /** (optional) disable multiselect */
   @Prop() disabled: boolean = false;
+
   /** (optional) enable multi values */
   @Prop() multiple: boolean = true;
+
   /** (optional) enable search */
   @Prop({ mutable: true }) search: boolean = false;
 
@@ -94,8 +113,10 @@ export class CnMultiselect {
       this._options = newValue;
     }
   }
+
   @Watch('disabledItems')
   disabledItemsWatcher(newValue: any[] | string) {
+    //console.log(newValue,'disabled-items');
     if (typeof newValue === 'string') {
       this._disabled_items = JSON.parse(newValue);
     }
@@ -106,7 +127,7 @@ export class CnMultiselect {
 
   @Watch('selected')
   selectedWatcher(newValue: string[] | string) {
-
+    //console.log(newValue,'selected');
     if (typeof newValue === 'string') {
       this._selected = JSON.parse(newValue);
     }
@@ -127,35 +148,39 @@ export class CnMultiselect {
   }
 
   componentWillLoad() {
+    this.disabledItemsWatcher(this.disabledItems);
     this.optionsWatcher(this.options);
     this.selectedWatcher(this.selected);
-    this.disabledItemsWatcher(this.disabledItems);
     this._internals();
-    //this.internals.setFormValue("a default value");
-    //console.log(this.internals.form);
   }
 
 
-  /*formAssociatedCallback(form) {
-
-  }*/
-
-  selectAllItems(){
-    this.el.shadowRoot.querySelectorAll('.cn-option').forEach( item => {
-      if( !item.querySelector('input').checked ) {
-        item.querySelector('input').click();
-      }
-    })
+  /**
+   * Select all items
+   */
+  @Method()
+  async selectAllItems(){
+    if( !this.multiple ) return;
+    let selected = this._options.map( item => item.value).filter( key => {
+      return this._disabled_items?!this._disabled_items.includes(key): true;
+    });
+    if( this.maxSelectedItems && this.maxSelectedItems > 0 ){
+        selected = selected.slice(0, this.maxSelectedItems)
+    }
+    this._selected = [...selected]
     this.emitChangeValues();
+    return;
   }
 
-  deselectAllItems(){
-    this.el.shadowRoot.querySelectorAll('.cn-option').forEach( item => {
-      if( item.querySelector('input').checked ) {
-        item.querySelector('input').click();
-      }
-    })
+  /**
+  * Deselect all items
+  */
+  @Method()
+  async deselectAllItems(){
+    if( !this.multiple ) return;
+    this._selected = []
     this.emitChangeValues();
+    return;
   }
 
   /*selectInput!: HTMLSelectElement;
@@ -171,9 +196,9 @@ export class CnMultiselect {
   }*/
 
   render() {
-    console.log('rendering');
+    //console.log('rendering');
     const selected = this.getSelectedOptions();
-    console.log(this._selected);
+    //console.log(this._selected);
     const options = this.getOptions();
     const css_class = this.disabled?"cn-multiselect-wrapper disabled":"cn-multiselect-wrapper";
     let open_options =  this.open?'options open':'options';
@@ -184,6 +209,9 @@ export class CnMultiselect {
     }
     if( this.search ){
       open_options += " searchable";
+    }
+    if( this.selectAll && this.multiple){
+      open_options += ' bulks';
     }
     return (
 
@@ -215,10 +243,12 @@ export class CnMultiselect {
                     </div>
                   </div>
                 </div>
+                { (this.selectAll && this.multiple)?
                 <div class="bulks">
-                  <button onClick={() => this.selectAllItems()}>Seleziona tutti</button>
-                  <button onClick={() => this.deselectAllItems()}>deseleziona tutti</button>
+                  <button onClick={() => this.selectAllItems()}>{this.selectAllText}</button>
+                  <button onClick={() => this.deselectAllItems()}>{this.deselectAllText}</button>
                 </div>
+                :''}
               </div>
             </div>
         </div>
@@ -235,9 +265,9 @@ export class CnMultiselect {
     if( this.disabled){
       return;
     }
-    const index = this._selected.findIndex( item => item == option.key);
+    const index = this._selected.findIndex( item => item == option.value);
     if( index >= 0){
-      this.deselectedItem.emit(option);
+      this.deselectedOption.emit(option);
       this._selected.splice(index,1);
       this._selected = [...this._selected];
     }
@@ -247,45 +277,72 @@ export class CnMultiselect {
   private getSelectedOptions() {
 
     if( this._selected && this._selected.length > 0 && this._options && this._options.length > 0 ){
-        return this._selected.map(option=>{
-          const selected = this._options.find( item => item.key == option);
-          if( selected ){
-            const _style = selected.style;
-            let style = {};
-            if( _style ){
-              if( _style.backgroundColor ){
-                style['background-color'] = _style.backgroundColor;
-              }
-              if( _style.color ){
-                style['color'] = _style.color;
-              }
-              if( _style.borderColor ){
-                style['border-color'] = _style.borderColor;
-              }
-            }
+        if( this.preserveOrder ){
+          return this._options.map( option => {
+            if( this._selected.includes(option.value)){
 
-            return <div class="cn-selected-option" style={style}  data-key={selected.key} draggable={true} onDragStart={event => this.drag(event)} onClick={event => this.clickItem(selected,event)}>
-              <span>{selected.value}</span>
-              <span class="cn-btn-delete-option" onClick={event => this.deselected(selected,event)}></span>
-            </div>
+              const _style = option.style;
+              let style = {};
+              if( _style ){
+                if( _style.backgroundColor ){
+                  style['background-color'] = _style.backgroundColor;
+                }
+                if( _style.color ){
+                  style['color'] = _style.color;
+                }
+                if( _style.borderColor ){
+                  style['border-color'] = _style.borderColor;
+                }
+              }
+
+              return <div class="cn-selected-option" style={style}  data-key={option.value} draggable={true} onDragStart={event => this.drag(event)} onClick={event => this.clickItem(option,event)}>
+                <span>{option.label}</span>
+                <span class="cn-btn-delete-option" onClick={event => this.deselected(option,event)}></span>
+              </div>
             }
-          }
-        )
+          })
+
+        }else{
+          return this._selected.map(option=>{
+            const selected = this._options.find( item => item.value == option);
+            if( selected ){
+              const _style = selected.style;
+              let style = {};
+              if( _style ){
+                if( _style.backgroundColor ){
+                  style['background-color'] = _style.backgroundColor;
+                }
+                if( _style.color ){
+                  style['color'] = _style.color;
+                }
+                if( _style.borderColor ){
+                  style['border-color'] = _style.borderColor;
+                }
+              }
+
+              return <div class="cn-selected-option" style={style}  data-key={selected.value} draggable={true} onDragStart={event => this.drag(event)} onClick={event => this.clickItem(selected,event)}>
+                <span>{selected.label}</span>
+                <span class="cn-btn-delete-option" onClick={event => this.deselected(selected,event)}></span>
+              </div>
+              }
+            }
+          )
+      }
 
 
     }
-    return <div class="cn-no-values">{this.placeholder}</div>;
+    return <div class="cn-no-values">{this.title}</div>;
   }
 
   private getOptions(){
     if( this._options && this._options.length > 0 ){
 
       const filteredOptions = this._options.map(option=>{
-        if( this.search && this.searchKey && this.searchKey.length > 2 && !option.value.toLowerCase().match(new RegExp(this.searchKey.toLowerCase())) ){
+        if( this.search && this.searchKey && this.searchKey.length > 2 && !option.label.toLowerCase().match(new RegExp(this.searchKey.toLowerCase())) ){
             return '';
         }else{
-          const checked =  this._selected && this._selected.includes(option.key)
-          const disabled = this._disabled_items.includes(option.key)
+          const checked =  this._selected && this._selected.includes(option.value)
+          const disabled = this._disabled_items && this._disabled_items.includes(option.value)
           return <div class={disabled?"cn-option disabled":"cn-option"}>
             <label class="pure-material-checkbox" >
             {checked
@@ -294,7 +351,7 @@ export class CnMultiselect {
             }
              <span>
               <div>
-                {option.value}
+                {option.label}
               </div>
               </span>
             </label>
@@ -477,8 +534,7 @@ export class CnMultiselect {
   }
 
   toggle(option: Option, event: any): void{
-
-    if( this._disabled_items.length > 0 && this._disabled_items.includes(option.key) ){
+    if( this._disabled_items && this._disabled_items.length > 0 && this._disabled_items.includes(option.value) ){
       if( event.target.checked  ){
         event.target.checked = false;
       }else{
@@ -490,23 +546,23 @@ export class CnMultiselect {
     if( !this._selected ) this._selected = [];
     let changed = true;
     if( !event.target.checked ){
-      const index = this._selected.findIndex( item => item == option.key);
+      const index = this._selected.findIndex( item => item == option.value);
       if( index >= 0){
-        this.deselectedItem.emit(option);
+        this.selectedOption.emit(option);
         this._selected.splice(index,1);
         this._selected = [...this._selected];
       }
     }else{
       if( !this.multiple ){
-        this.selectedItem.emit(option);
-        this._selected = [option.key]
+        this.selectedOption.emit(option);
+        this._selected = [option.value]
       }else{
         if( this.maxSelectedItems > 0 && this._selected.length == this.maxSelectedItems ){
           event.target.checked = false;
           changed = false;
         }else{
-          this.selectedItem.emit(option);
-          this._selected = [...this._selected,option.key]
+          this.selectedOption.emit(option);
+          this._selected = [...this._selected,option.value]
         }
 
       }
@@ -519,14 +575,26 @@ export class CnMultiselect {
 
   emitChangeValues(){
     this._internals();
-    this.changeValues.emit(this._selected);
+    this.changeValue.emit(this._selected);
   }
 
   _internals(){
     const formdata = new FormData;
-    this._selected.forEach( item =>{
-      formdata.append(this.name,item);
-    });
+    if( this._selected && this._selected.length > 0){
+      if( this.preserveOrder ){
+        this._options.forEach( item =>{
+          if( this._selected.includes(item.value) ){
+            formdata.append(this.name,item.value);
+          }
+        });
+      }else{
+        this._selected.forEach( item =>{
+          formdata.append(this.name,item);
+        });
+
+      }
+    }
+
     this.internals.setFormValue(formdata);
   }
 

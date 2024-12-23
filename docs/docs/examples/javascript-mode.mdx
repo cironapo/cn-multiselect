@@ -1,0 +1,50 @@
+---
+sidebar_position: 2
+---
+
+# Javascript mode
+
+### Source
+import Preview from '@site/src/components/Preview';
+
+```html title="index.html"
+<cn-multiselect id="example"></cn-multiselect>
+
+<!-- javascript code -->
+<script>
+const example = document.getElementById('example');
+
+
+example.title = "Select fruits"; // set title
+example.search = true; // enable search
+example.popup = true; // enable popup mode
+example.popupTitle = 'Select your fruits'; // set popup title
+example.selected = ["apple"]; // set default items
+example.disabledItems = ["ananas"]; //disable specific items
+
+const options = [
+  {
+    value: 'apple',
+    label: "Apple"
+  },
+  {
+    value: 'banana',
+    label: "Banana"
+  },
+  {
+    value: 'ananas',
+    label: "Ananas"
+  }
+];
+
+example.options = options; // set options
+</script>
+```
+### Output
+
+
+import JavascriptMode from '@site/src/components/JavascriptMode';
+
+<JavascriptMode/>
+
+

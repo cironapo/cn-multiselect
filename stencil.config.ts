@@ -5,8 +5,18 @@ export const config: Config = {
   namespace: 'multiselect',
   outputTargets: [
     {
+      type: 'docs-readme',
+      footer: '*Built with love!*',
+
+    },
+    {
       type: 'dist',
       esmLoaderPath: '../loader',
+    },
+    {
+      type: 'dist',
+      esmLoaderPath: '../loader',
+      dir: 'docs/static/build',
     },
     {
       type: 'dist-custom-elements',

@@ -17,7 +17,7 @@
         justify-content: space-between;
       }
       .wrapper{
-        width: 800px !important;
+        width: 1000px !important;
       }
       .form-element{
         width: 100%;
@@ -25,10 +25,10 @@
       }
       cn-multiselect{
         --cn-multiselect-font: Arial;
-        --cn-multiselect-font-size: 24px;
+        /*--cn-multiselect-font-size: 24px;*/
         --cn-multiselect-border-radius: 0px;
-        --cn-multiselect-popup-width: 500px;
-        --cn-multiselect-popup-height: 500px;
+        --cn-multiselect-popup-width: 50%;
+        --cn-multiselect-popup-height: 700px;
         /*--cn-multiselect-background-color-selected-option: green;
         --cn-multiselect-border-color-selected-option: green;
         --cn-multiselect-color-selected-option: #cccccc;
@@ -66,11 +66,13 @@
           </div>
             <cn-multiselect
               id="custom-select"
-              placeholder="ciaone"
+              preserve-order="true"
+              selected="[4]"
+              title="ciaone"
+
               placeholder-search="Ricerca..."
               search="false"
               popup="false"
-              max-selected-items="0"
               popup-title="Seleziona opzione"
               name="formdata[custom-multiselect][]"></cn-multiselect>
         </form>
@@ -83,6 +85,8 @@
       <button id="search-mode">enable search mode</button>
       <button id="disabled-mode">disabled</button>
       <button id="get-form">get form</button>
+      <button id="select-all">select all item</button>
+      <button id="bulks">toggle bluks</button>
     </div>
 
 
@@ -97,8 +101,8 @@
         const options = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21].map(item => {
           if( item == 3 ){
             return {
-              key: item,
-              value: `valore bellissimo aahahahahah ahahah ahhha ahahah ahhaha ahahah`,
+              value: item,
+              label: `valore bellissimo aahahahahah ahahah ahhha ahahah ahhaha ahahah`,
               style: {
                 backgroundColor: 'red',
                 borderColor: 'red',
@@ -107,14 +111,14 @@
             }
           }
           return {
-            key: item,
-            value: `valore ${item} bellissimo`
+            value: item,
+            label: `valore ${item} bellissimo`
           }
         })
-
+        //console.log(custom.disabledItems,'qua');
         custom.options = options;
-        custom.disabledItems = [1,2];
-        custom.selected = [8,9,1,2,4,5];
+        //custom.disabledItems = [1,2];
+        //custom.selected = [8,9,1,2,4,5];
         custom.addEventListener('changeValues',function(event){
             console.log(event.detail);
         });
@@ -189,6 +193,21 @@
         }
       })
 
+      document.querySelector('#select-all').addEventListener('click',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.selectAllItems().then((res)=>{
+        console.log(res)
+      });
+
+
+
+      })
+
+      document.querySelector('#bulks').addEventListener('click',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.selectAll = !custom.selectAll;
+        console.log(custom);
+      });
 
     </script>
   </body>
