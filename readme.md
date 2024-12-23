@@ -1,9 +1,9 @@
-## Install stencil dependencies
+## Install dependencies
+### Install stencil dependencies
 ```bash
 npm install
 ```
-
-## Install docusaurus dependencies
+### Install docusaurus dependencies
 ```bash
 cd docs
 npm install
