@@ -1,7 +1,7 @@
 import { EventEmitter } from '../../stencil-public-runtime';
 export type Option = {
-    key: any;
-    value: string;
+    value: any;
+    label: string;
     style?: Style;
     data?: Data;
 };
@@ -13,6 +13,9 @@ export type Style = {
 export type Data = {
     [key: string]: any;
 };
+/**
+ * **cn-multiselect** is a fantastic web component that allows you to integrate a multiselect feature into your web page.
+ */
 export declare class CnMultiselect {
     name: string;
     /** (optional) enable select/deselect all items buttons */

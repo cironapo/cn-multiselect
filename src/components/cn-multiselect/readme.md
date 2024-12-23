@@ -5,6 +5,26 @@
 <!-- Auto Generated Below -->
 
 
+## Overview
+
+**cn-multiselect** is a fantastic web component that allows you to integrate a multiselect feature into your web page.
+
+## Usage
+
+### Cn-multiselect-usage
+
+This component is used to provide a way to greet a user using their first, middle, and last name.
+This component will properly format the provided name, even when all fields aren't provided:
+
+```html
+<cn-mutliselect 
+  title="Select your favourite fruit"
+  options='[{"value":"apple","label","Apple"},{"value":"banana","label","Banana"}]'>
+</cn-mutliselect>
+```
+
+
+
 ## Properties
 
 | Property            | Attribute            | Description                                         | Type                 | Default              |
@@ -20,7 +40,7 @@
 | `popup`             | `popup`              | (optional) popup mode                               | `boolean`            | `false`              |
 | `popupTitle`        | `popup-title`        | (optional) popup title                              | `string`             | `'Select option'`    |
 | `search`            | `search`             | (optional) enable search                            | `boolean`            | `false`              |
-| `selectAll`         | `select-all`         | (optional) enable select/deselect all items buttons | `boolean`            | `true`               |
+| `selectAll`         | `select-all`         | (optional) enable select/deselect all items buttons | `boolean`            | `false`              |
 | `selectAllText`     | `select-all-text`    | (optional) select all text                          | `string`             | `'Select all'`       |
 | `selected`          | `selected`           | (optional) selected values                          | `any[] \| string`    | `undefined`          |
 | `title`             | `title`              | (optional) title                                    | `string`             | `'Select option...'` |
@@ -28,12 +48,12 @@
 
 ## Events
 
-| Event                 | Description                                                          | Type                                                                    |
-| --------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `changeValue`         | (optional) event on change selected options. Return the option keys. | `CustomEvent<any[]>`                                                    |
-| `clickedSelectedItem` | (optional) event triggered when click on selected option             | `CustomEvent<{ key: any; value: string; style?: Style; data?: Data; }>` |
-| `deselectedOption`    | (optional) event on deseleted option                                 | `CustomEvent<{ key: any; value: string; style?: Style; data?: Data; }>` |
-| `selectedOption`      | (optional) event on seleted option                                   | `CustomEvent<{ key: any; value: string; style?: Style; data?: Data; }>` |
+| Event                 | Description                                                          | Type                                                                      |
+| --------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `changeValue`         | (optional) event on change selected options. Return the option keys. | `CustomEvent<any[]>`                                                      |
+| `clickedSelectedItem` | (optional) event triggered when click on selected option             | `CustomEvent<{ value: any; label: string; style?: Style; data?: Data; }>` |
+| `deselectedOption`    | (optional) event on deseleted option                                 | `CustomEvent<{ value: any; label: string; style?: Style; data?: Data; }>` |
+| `selectedOption`      | (optional) event on seleted option                                   | `CustomEvent<{ value: any; label: string; style?: Style; data?: Data; }>` |
 
 
 ## Methods
@@ -57,6 +77,31 @@ Select all items
 Type: `Promise<void>`
 
 
+
+
+## CSS Custom Properties
+
+| Name                                                   | Description                         |
+| ------------------------------------------------------ | ----------------------------------- |
+| `--cn-multiselect-arrow-checkbox-color`                | : color arrow checkbox              |
+| `--cn-multiselect-background-color-selected-checkbox`  | background color selected checkbox  |
+| `--cn-multiselect-background-color-selected-option`    | background color selected option    |
+| `--cn-multiselect-border-color`                        | border color                        |
+| `--cn-multiselect-border-color-checkbox`               | border color checkbox               |
+| `--cn-multiselect-border-color-selected-checkbox`      | border color selected checkbox      |
+| `--cn-multiselect-border-color-selected-option`        | border color selected option        |
+| `--cn-multiselect-border-radius`                       | border radius (es. 1px)             |
+| `--cn-multiselect-border-size`                         | border size (es. 1px)               |
+| `--cn-multiselect-color`                               | font color                          |
+| `--cn-multiselect-color-option`                        | font color option                   |
+| `--cn-multiselect-color-placeholder`                   | font color selected option          |
+| `--cn-multiselect-color-search`                        | font color search text              |
+| `--cn-multiselect-color-selected-option`               | font color selected option          |
+| `--cn-multiselect-container-background`                | container background                |
+| `--cn-multiselect-container-selected-items-min-height` | min height container selected items |
+| `--cn-multiselect-font`                                | font family                         |
+| `--cn-multiselect-font-size`                           | font size                           |
+| `--cn-multiselect-popup-width`                         | popup width                         |
 
 
 ----------------------------------------------

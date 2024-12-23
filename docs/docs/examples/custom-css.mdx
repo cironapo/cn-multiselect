@@ -1,0 +1,42 @@
+---
+sidebar_position: 3
+---
+
+# Custom css
+
+### Source
+import Preview from '@site/src/components/Preview';
+
+```html title="index.html"
+<!-- Custom style -->
+<style>
+cn-multiselect{
+      --cn-multiselect-background-color-selected-option: #2e8555;
+      --cn-multiselect-border-color-selected-option: #2e8555;
+      --cn-multiselect-border-radius: 5px;
+      --cn-multiselect-background-color-selected-checkbox: #2e8555;
+      --cn-multiselect-border-color-selected-checkbox: #2e8555;
+      --cn-multiselect-border-color: #2e855554;
+      --cn-multiselect-border-color-checkbox: #2e855554;
+      --cn-multiselect-bulk-actions-button-background-hover: #2e8555;
+      --cn-multiselect-font: Verdana;
+      --cn-multiselect-font-size: 22px;
+}
+</style>
+
+<cn-multiselect
+    title="Select country"
+    selected='["IT"]'
+    search="true"
+    select-all="true"
+    options='[{"value":"IT", "label":"Italy","style":{"backgroundColor":"#5ba9f5","borderColor":"#5ba9f5"}},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
+</cn-multiselect>
+```
+### Output
+
+
+import CustomCss from '@site/src/components/CustomCss';
+
+<CustomCss/>
+
+

@@ -5,7 +5,9 @@ export const config: Config = {
   namespace: 'multiselect',
   outputTargets: [
     {
-      type: 'docs-readme'
+      type: 'docs-readme',
+      footer: '*Built with love!*',
+
     },
     {
       type: 'dist',

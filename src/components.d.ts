@@ -8,6 +8,9 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Option } from "./components/cn-multiselect/cn-multiselect";
 export { Option } from "./components/cn-multiselect/cn-multiselect";
 export namespace Components {
+    /**
+     * **cn-multiselect** is a fantastic web component that allows you to integrate a multiselect feature into your web page.
+     */
     interface CnMultiselect {
         /**
           * Deselect all items
@@ -87,6 +90,9 @@ declare global {
         "selectedOption": Option;
         "deselectedOption": Option;
     }
+    /**
+     * **cn-multiselect** is a fantastic web component that allows you to integrate a multiselect feature into your web page.
+     */
     interface HTMLCnMultiselectElement extends Components.CnMultiselect, HTMLStencilElement {
         addEventListener<K extends keyof HTMLCnMultiselectElementEventMap>(type: K, listener: (this: HTMLCnMultiselectElement, ev: CnMultiselectCustomEvent<HTMLCnMultiselectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -106,6 +112,9 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    /**
+     * **cn-multiselect** is a fantastic web component that allows you to integrate a multiselect feature into your web page.
+     */
     interface CnMultiselect {
         /**
           * (optional) deselect all text
@@ -189,6 +198,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            /**
+             * **cn-multiselect** is a fantastic web component that allows you to integrate a multiselect feature into your web page.
+             */
             "cn-multiselect": LocalJSX.CnMultiselect & JSXBase.HTMLAttributes<HTMLCnMultiselectElement>;
         }
     }

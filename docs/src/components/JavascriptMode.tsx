@@ -7,6 +7,7 @@ export default function JavascriptMode() {
       example.title = "Select fruits"; // set title
       example.search = true; // enable search
       example.popup = true; // enable popup mode
+      example.selectAll = true; // enable select/deselect all actions
       example.popupTitle = 'Select your fruits'; // set popup title
       example.selected = ["apple"]; // set default items
       example.disabledItems = ["ananas"]; //disable items
@@ -14,16 +15,16 @@ export default function JavascriptMode() {
 
       const options = [
         {
-          key: 'apple',
-          value: "Apple"
+          value: 'apple',
+          label: "Apple"
         },
         {
-          key: 'banana',
-          value: "Banana"
+          value: 'banana',
+          label: "Banana"
         },
         {
-          key: 'ananas',
-          value: "Ananas"
+          value: 'ananas',
+          label: "Ananas"
         }
       ];
 

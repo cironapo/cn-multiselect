@@ -92,7 +92,7 @@
   /**
   * @prop --cn-multiselect-popup-width: popup header color
   */
-  --cn-multiselect-popup-header-color: var(--cn-multiselect-border-color);
+  --cn-multiselect-popup-header-color: var(--cn-multiselect-color);
 
  /**
   * @prop --cn-multiselect-container-background: container background
@@ -106,8 +106,7 @@
   --cn-multiselect-bulk-actions-button-background-hover: #026ed8;
 
   --cn-multiselect-bulk-actions-button-color-hover: #FFFFFF;
-}
-:host {
+
   * {
     margin: 0;
     padding: 0;
@@ -116,25 +115,27 @@
   select{
     display: none;
   }
-}
 
-:host .overlay{
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+  .overlay{
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
 
-  &.show{
-    display: block;
+    &.show{
+      display: block;
+    }
   }
+
 }
+
 
 :host .cn-multiselect-wrapper{
   border-radius: var(--cn-multiselect-border-radius);
@@ -363,6 +364,9 @@
 
           .cn-option{
             border-bottom: 1px solid #cecece96;
+            &:last-child{
+              border-bottom: 0px;
+            }
             padding: 0.2em 0.2em;
             &.disabled{
               opacity: 0.5;
@@ -537,6 +541,7 @@
 
         .options-list{
           max-height: 100%;
+          height: 100%;
         }
         .search{
           top: 2em;
@@ -588,7 +593,7 @@
         .list-options{
           max-height: 100%;
           height: 100%;
-          padding: 1.6em 0.2em 0.5em;
+          padding: 1.8em 0.2em 0.5em;
         }
         &.searchable{
           .list-options{
@@ -601,8 +606,3 @@
     }
   }
 }
-
-
-
-
-

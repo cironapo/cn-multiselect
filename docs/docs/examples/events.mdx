@@ -10,12 +10,12 @@ import Preview from '@site/src/components/Preview';
 <Preview component={<cn-multiselect
         selected='["IT","FR"]'
         title="Select country"
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"},{"key":"DE","value":"Germany"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
 </cn-multiselect>}
       source={`<cn-multiselect
         title="Select country"
         selected='["IT","FR"]'
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
 </cn-multiselect>`}/>
 
 ## Enable search
@@ -23,13 +23,13 @@ import Preview from '@site/src/components/Preview';
         selected='["IT"]'
         title="Select country"
         search="true"
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"},{"key":"DE","value":"Germany"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
 </cn-multiselect>}
       source={`<cn-multiselect
         title="Select country"
         search="true"
         selected='["IT"]'
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
 </cn-multiselect>`}/>
 
 ## Limit max num selectable items
@@ -37,13 +37,13 @@ import Preview from '@site/src/components/Preview';
         selected='["IT"]'
         max-selected-items="2"
         title="Select country"
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"},{"key":"DE","value":"Germany"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
 </cn-multiselect>}
       source={`<cn-multiselect
         title="Select country"
         max-selected-items="2"
         selected='["IT"]'
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
 </cn-multiselect>`}/>
 
 ## Popup mode
@@ -52,14 +52,14 @@ import Preview from '@site/src/components/Preview';
         title="Select country"
         popup="true"
         popup-title="Countries"
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"},{"key":"DE","value":"Germany"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"},{"value":"DE","label":"Germany"}]'>
 </cn-multiselect>}
       source={`<cn-multiselect
         title="Select country"
         popup="true"
         popup-title="Countries"
         selected='["IT"]'
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
 </cn-multiselect>`}/>
 
 
@@ -69,13 +69,13 @@ import Preview from '@site/src/components/Preview';
         component={<cn-multiselect
         selected='["IT"]'
         title="Select country"
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
 </cn-multiselect>}
       source={`<cn-multiselect
         id="custom"
         title="Select country"
         selected='["IT"]'
-        options='[{"key":"IT", "value":"Italy"},{"key":"FR", "value":"France"},{"key":"ES", "value":"Spain"}]'>
+        options='[{"value":"IT", "label":"Italy"},{"value":"FR", "label":"France"},{"value":"ES", "label":"Spain"}]'>
 </cn-multiselect>`}
    style={`cn-multiselect{
       --cn-multiselect-background-color-selected-option: #2e8555;
