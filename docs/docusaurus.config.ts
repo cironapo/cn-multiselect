@@ -39,8 +39,6 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           include: ['**/*.md','**/*.mdx'],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/cironapo/cn-multiselect/tree/main/docs/',
         },
