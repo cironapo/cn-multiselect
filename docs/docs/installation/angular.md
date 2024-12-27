@@ -31,49 +31,34 @@ Angular supports Web Components natively, but a shim might be required for older
 npm install @webcomponents/custom-elements --save
 ```
 
-Add the shim to the angular.json file under the scripts property:
-
-```json
-"scripts": [
-  "node_modules/@webcomponents/custom-elements/custom-elements.min.js"
-]
-```
-
 ## 3. Add the Web Component to Your Project
-### 3.1 Import the Web Component Package
-
-If the Web Component is distributed as an npm package, install it using:
 
 ```bash
-npm install cn-multiselect --save
+npm install @cironapo/cn-multiselect --save
 ```
 
-### 3.2 Or, Import the Web Component Manually
-Copy the file into your project directory, for example, in src/assets/js/.
-
-Add the file to the angular.json file under the scripts property:
-
-```json
-"scripts": [
-  "src/assets/js/cn-multiselect.js"
-]
-```
 
 ## 4. Use the Web Component
 ### 4.1 Declare the Schema for Angular
 
-Angular does not automatically recognize custom Web Component tags. To avoid compilation errors, declare the custom tags in your Angular module. Edit the main module file (app.module.ts) to add the CUSTOM_ELEMENTS_SCHEMA:
+Angular does not automatically recognize custom Web Component tags. To avoid compilation errors, declare the custom tags in your Angular module. Edit the main module file (app.module.ts) to add the **CUSTOM_ELEMENTS_SCHEMA**:
 
-```typescript
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+```typescript title="app.module.ts"
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppComponent } from './app.component';
+import '@cironapo/cn-multiselect';
 
 @NgModule({
   declarations: [
-    // Your Angular components
+    AppComponent
   ],
+  
   imports: [
-    // Your Angular modules
+    BrowserModule
   ],
+  bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
@@ -82,10 +67,80 @@ export class AppModule {}
 ### 4.2 Insert the Web Component into HTML
 You can now use the Web Component directly in your Angular project’s HTML files. For example, in app.component.html:
 
-```html
-<cn-multiselect 
-  [title]="Select item"
-  [select-all]="true"
-  [search]="true"
-  (changeValue)="myCustomFunction($event)"></cn-multiselect>
+```typescript title="app.component.ts"
+import { Component, OnInit } from '@angular/core';
+import {Option} from '@cironapo/cn-multiselect'
+@Component({
+  selector: 'app-root',
+  template: `
+    <label>My custom select</label>
+    <cn-multiselect 
+      [disabledItems]="disabledItems"
+      [selected]="selected"
+      [options]="options" 
+      (clickedSelectedItem)="clickItem($event)"
+      (changeValue)="changeValue($event)"
+      (deselectedOption)="deselectedOption($event)"
+      (selectedOption)="selectedOption($event)"
+      [popup]="true"
+      [search]="true"
+      [selectAll]="true"
+      title="Seleziona opzione"
+      ></cn-multiselect>
+    
+  `,
+  styles: []
+})
+export class AppComponent implements OnInit{
+  title = 'test-cironapo-multiselect';
+  options : Option[] = [];
+  disabledItems: number[] = [1,2,3];
+  selected: number[] = [4,5,6];
+  ngOnInit(): void {
+    let options :Option[] = [];
+    for( let k = 0; k < 100; k++ ){
+      const color = this._getRandomColor();
+      options.push({
+        value: k,
+        label: `Option ${k}`,
+        style: {
+          backgroundColor: color,
+          borderColor: color
+        }
+
+      })
+    }
+    this.options = [...options];
+  }
+
+  changeValue(event: CustomEvent){
+    const selected = event.detail;
+    console.log(selected, "Selected values")
+  }
+
+  clickItem(event: CustomEvent){
+    const option = event.detail as Option;
+    alert(option.label)
+  }
+
+  selectedOption(event: CustomEvent){
+    const option = event.detail as Option;
+    console.log(option, "Selected option")
+  }
+
+  deselectedOption(event: CustomEvent){
+    const option = event.detail as Option;
+    console.log(option, "Deselected option")
+  }
+
+  _getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+  
+}
 ```

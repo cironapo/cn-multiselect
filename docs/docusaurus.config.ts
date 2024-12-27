@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Multiselect',
+  title: '@cironapo/cn-multiselect',
   tagline: 'cn-multiselect',
   //favicon: 'img/favicon.ico',
 
@@ -33,14 +33,16 @@ const config: Config = {
 
   presets: [
     [
-      'classic',
+      '@docusaurus/preset-classic',
       {
         docs: {
+          routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           include: ['**/*.md','**/*.mdx'],
           editUrl:
             'https://github.com/cironapo/cn-multiselect/tree/main/docs/',
         },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -49,7 +51,7 @@ const config: Config = {
   ],
   scripts: [
     {
-      src: '/cn-multiselect/build/multiselect/multiselect.esm.js',
+      src: 'https://unpkg.com/@cironapo/cn-multiselect@0.1.5/dist/cn-multiselect/cn-multiselect.esm.js',
       type: 'module'
     }
 

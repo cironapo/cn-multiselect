@@ -1,5 +1,4 @@
 #!/bin/bash
-mkdir -p docs/static/build
 npx stencil build --docs
 cp ./src/components/cn-multiselect/readme.md ./docs/docs/docs.md
 
