@@ -19,9 +19,18 @@
   */
   --cn-multiselect-border-color: #ccc;
   /**
+  * @prop --cn-multiselect-container-border-color: container border color
+  */
+  --cn-multiselect-container-border-color: var(--cn-multiselect-border-color);
+  /**
   * @prop --cn-multiselect-border-size: border size (es. 1px)
   */
   --cn-multiselect-border-size: 1px;
+  /**
+  * @prop --cn-multiselect-container-border-size: container border size (es. 1px)
+  */
+  --cn-multiselect-container-border-size: var(--cn-multiselect-border-size);
+
   /**
   * @prop --cn-multiselect-border-radius: border radius (es. 1px)
   */
@@ -140,7 +149,7 @@
 :host .cn-multiselect-wrapper{
   border-radius: var(--cn-multiselect-border-radius);
   margin: 0;
-  border: var(--cn-multiselect-border-size) solid var(--cn-multiselect-border-color);
+  border: var(--cn-multiselect-container-border-size) solid var(--cn-multiselect-container-border-color);
   min-height: 30px;
   height: auto;
   padding: 5px;
@@ -179,6 +188,16 @@
       margin-top: 0.2em;
       position: relative;
       min-height: 1.5em;
+
+      div{
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        img{
+          max-width: 1.2em;
+          margin-right: 0.2em;
+        }
+      }
 
       &.draggable{
         /*border-width: 2px;*/
@@ -419,7 +438,7 @@
               display: inline-block;
               box-sizing: border-box;
               margin: 0.2em 1em 0.2em 0.1em;
-              border: solid 2px; /* Safari */
+              border: solid 1px; /* Safari */
               border-color: var(--cn-multiselect-border-color-checkbox);
               border-radius: 2px;
               width: 1.1em;
@@ -444,9 +463,18 @@
             }
 
             .pure-material-checkbox > span > div {
-              display: inline-block !important;
+              display: flex !important;
               padding-left: 2.2em;
               width: auto;
+              align-items: flex-start;
+              justify-content: flex-start;
+              img{
+                margin-right: 0.2em;
+                max-width: 1.5em;
+
+              }
+
+
             }
 
             /* Checked, Indeterminate */
@@ -521,6 +549,24 @@
             }
 
           }
+        }
+      }
+
+      &.select-mode{
+        .content-options .options-list .cn-option .pure-material-checkbox>span::before {
+          margin: 0.1em 0.1em 0.1em 0.1em;
+          border: solid 1px;
+          border-color: var(--cn-multiselect-border-color-checkbox);
+          border-radius: 10px !important;
+          width: 1.3em;
+          height: 1.3em;
+
+        }
+        .content-options .options-list .cn-option .pure-material-checkbox>span::after {
+          top: 0.3em !important;
+          left: 0.25em !important;
+          width: 0.8em;
+          height: 0.3em;
         }
       }
 

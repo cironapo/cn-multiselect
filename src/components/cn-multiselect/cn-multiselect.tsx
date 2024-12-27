@@ -2,6 +2,7 @@ import { Component, EventEmitter, h, Prop, State, Watch, Event, Listen, Element,
 export type Option = {
   value: any;
   label: string;
+  image?: string;
   style?: Style;
   data?: Data;
 }
@@ -213,6 +214,9 @@ export class CnMultiselect {
     if( this.selectAll && this.multiple){
       open_options += ' bulks';
     }
+    if( !this.multiple){
+      open_options += ' select-mode';
+    }
     return (
 
         <div class={css_class} >
@@ -293,7 +297,15 @@ export class CnMultiselect {
               }
 
               return <div class="cn-selected-option" style={style}  data-key={option.value} onClick={event => this.clickItem(option,event)}>
-                <span>{option.label}</span>
+                <span>
+                  <div>
+                    {option.image?
+                    <img src={option.image}/>
+                    :''
+                    }
+                    {option.label}
+                  </div>
+                </span>
                 <span class="cn-btn-delete-option" onClick={event => this.deselected(option,event)}></span>
               </div>
             }
@@ -348,6 +360,10 @@ export class CnMultiselect {
             }
              <span>
               <div>
+                {option.image?
+                <img src={option.image}/>
+                :''
+                }
                 {option.label}
               </div>
               </span>

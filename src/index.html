@@ -26,6 +26,11 @@
       cn-multiselect{
         --cn-multiselect-font: Arial;
         /*--cn-multiselect-font-size: 24px;*/
+        --cn-multiselect-container-border-size: 1px;
+        /*--cn-multiselect-container-border-color: rgb(222, 96, 96);*/
+        --cn-multiselect-background-color-selected-option: #FFFFFF;
+        --cn-multiselect-color-selected-option: #000000;
+        --cn-multiselect-border-color-selected-option: #ccc;
         --cn-multiselect-border-radius: 0px;
         --cn-multiselect-popup-width: 50%;
         --cn-multiselect-popup-height: 700px;
@@ -69,7 +74,7 @@
               preserve-order="true"
               selected="[4]"
               title="ciaone"
-
+              multiple="true"
               placeholder-search="Ricerca..."
               search="false"
               popup="false"
@@ -102,7 +107,8 @@
           if( item == 3 ){
             return {
               value: item,
-              label: `valore bellissimo aahahahahah ahahah ahhha ahahah ahhaha ahahah`,
+              label: `valore bellissimo aahahahahah ahahah ahhha ahahah ahhaha ahahah valore bellissimo aahahahahah ahahah ahhha ahahah ahhaha ahahah`,
+              image: 'https://www.svgrepo.com/show/508544/flag-it.svg',
               style: {
                 backgroundColor: 'red',
                 borderColor: 'red',
@@ -112,6 +118,7 @@
           }
           return {
             value: item,
+            image: 'https://www.svgrepo.com/show/508499/flag-es.svg',
             label: `valore ${item} bellissimo`
           }
         })

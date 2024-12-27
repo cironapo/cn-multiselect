@@ -49,12 +49,12 @@ This component will properly format the provided name, even when all fields aren
 
 ## Events
 
-| Event                 | Description                                                          | Type                                                                      |
-| --------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `changeValue`         | (optional) event on change selected options. Return the option keys. | `CustomEvent<any[]>`                                                      |
-| `clickedSelectedItem` | (optional) event triggered when click on selected option             | `CustomEvent<{ value: any; label: string; style?: Style; data?: Data; }>` |
-| `deselectedOption`    | (optional) event on deseleted option                                 | `CustomEvent<{ value: any; label: string; style?: Style; data?: Data; }>` |
-| `selectedOption`      | (optional) event on seleted option                                   | `CustomEvent<{ value: any; label: string; style?: Style; data?: Data; }>` |
+| Event                 | Description                                                          | Type                                                                                      |
+| --------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `changeValue`         | (optional) event on change selected options. Return the option keys. | `CustomEvent<any[]>`                                                                      |
+| `clickedSelectedItem` | (optional) event triggered when click on selected option             | `CustomEvent<{ value: any; label: string; image?: string; style?: Style; data?: Data; }>` |
+| `deselectedOption`    | (optional) event on deseleted option                                 | `CustomEvent<{ value: any; label: string; image?: string; style?: Style; data?: Data; }>` |
+| `selectedOption`      | (optional) event on seleted option                                   | `CustomEvent<{ value: any; label: string; image?: string; style?: Style; data?: Data; }>` |
 
 
 ## Methods
@@ -99,6 +99,8 @@ Type: `Promise<void>`
 | `--cn-multiselect-color-search`                        | font color search text              |
 | `--cn-multiselect-color-selected-option`               | font color selected option          |
 | `--cn-multiselect-container-background`                | container background                |
+| `--cn-multiselect-container-border-color`              | container border color              |
+| `--cn-multiselect-container-border-size`               | container border size (es. 1px)     |
 | `--cn-multiselect-container-selected-items-min-height` | min height container selected items |
 | `--cn-multiselect-font`                                | font family                         |
 | `--cn-multiselect-font-size`                           | font size                           |
