@@ -330,7 +330,16 @@ export class CnMultiselect {
               }
 
               return <div class="cn-selected-option" style={style}  data-key={selected.value} onClick={event => this.clickItem(selected,event)}>
-                <span>{selected.label}</span>
+                <span>
+                  <div>
+                    {selected.image?
+                    <img src={selected.image}/>
+                    :''
+                    }
+                    {selected.label}
+                  </div>
+                </span>
+
                 <span class="cn-btn-delete-option" onClick={event => this.deselected(selected,event)}></span>
               </div>
               }

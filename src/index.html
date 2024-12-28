@@ -31,9 +31,9 @@
         /*--cn-multiselect-background-color-selected-option: #FFFFFF;
         --cn-multiselect-color-selected-option: #000000;
         --cn-multiselect-border-color-selected-option: #ccc;*/
-        --cn-multiselect-border-radius: 0px;
-        --cn-multiselect-popup-width: 50%;
-        --cn-multiselect-popup-height: 700px;
+        --cn-multiselect-border-radius: 2px;
+        /*--cn-multiselect-popup-width: 50%;*/
+        /*--cn-multiselect-popup-height: 700px;*/
         /*--cn-multiselect-background-color-selected-option: green;
         --cn-multiselect-border-color-selected-option: green;
         --cn-multiselect-color-selected-option: #cccccc;
@@ -71,27 +71,28 @@
           </div>
             <cn-multiselect
               id="custom-select"
-              preserve-order="true"
               selected="[4]"
-              title="ciaone"
-              multiple="false"
+              title="Titolo multiselect"
               placeholder-search="Ricerca..."
-              search="false"
-              popup="false"
               popup-title="Seleziona opzione"
               name="formdata[custom-multiselect][]"></cn-multiselect>
         </form>
     </div>
     <div clas="actions">
       <h5>Azioni</h5>
-      <button id="update-items">Update items</button>
+      <!--<button id="update-items">Update items</button>
       <button id="reset-items">reset items</button>
       <button id="popup-mode">enable popup mode</button>
       <button id="search-mode">enable search mode</button>
       <button id="disabled-mode">disabled</button>
       <button id="get-form">get form</button>
       <button id="select-all">select all item</button>
-      <button id="bulks">toggle bluks</button>
+      <button id="bulks">toggle bluks</button>-->
+      <input type="checkbox" id="popup" value="1"> popup <br>
+      <input type="checkbox" id="select-all" value="1"> select all actions <br>
+      <input type="checkbox" id="search" value="1"> search <br>
+      <input type="checkbox" id="multiple" value="1" checked> multiple <br>
+      <input type="checkbox" id="preserve-order" value="1"> preserve order <br>
     </div>
 
 
@@ -145,7 +146,7 @@
 
 
       init();
-      document.querySelector('#update-items').addEventListener('click',function(){
+      /*document.querySelector('#update-items').addEventListener('click',function(){
         const custom = document.getElementById('custom-select');
         custom.options = [
           {
@@ -214,6 +215,30 @@
         const custom = document.getElementById('custom-select');
         custom.selectAll = !custom.selectAll;
         console.log(custom);
+      });*/
+
+      document.querySelector('#popup').addEventListener('change',function(event){
+          const custom = document.getElementById('custom-select');
+          custom.popup = event.target.checked;
+      });
+
+      document.querySelector('#multiple').addEventListener('change',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.multiple = event.target.checked;
+      });
+
+      document.querySelector('#search').addEventListener('change',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.search = event.target.checked;
+      });
+
+      document.querySelector('#select-all').addEventListener('change',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.selectAll = event.target.checked;
+      });
+      document.querySelector('#preserve-order').addEventListener('change',function(event){
+        const custom = document.getElementById('custom-select');
+        custom.preserveOrder = event.target.checked;
       });
 
     </script>
