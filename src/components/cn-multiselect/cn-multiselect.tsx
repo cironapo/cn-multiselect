@@ -140,13 +140,14 @@ export class CnMultiselect {
   //todo
   @Listen('click',{ target: 'window' })
   clickOutsideHandler(ev: any) {
-
+    //console.log(ev.target);
     if (ev.target === this.el) {
       return;
     }
     //inserire il codice per chiudere la select
     this.open = false;
   }
+
 
   componentWillLoad() {
     this.disabledItemsWatcher(this.disabledItems);

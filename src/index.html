@@ -27,6 +27,7 @@
         --cn-multiselect-font: Arial;
         /*--cn-multiselect-font-size: 24px;*/
         --cn-multiselect-container-border-size: 1px;
+        --cn-multiselect-popup-overlay-background: rgb(255,255,255,0.6);
         /*--cn-multiselect-container-border-color: rgb(222, 96, 96);*/
         /*--cn-multiselect-background-color-selected-option: #FFFFFF;
         --cn-multiselect-color-selected-option: #000000;
@@ -80,8 +81,11 @@
     </div>
     <div clas="actions">
       <h5>Azioni</h5>
-      <!--<button id="update-items">Update items</button>
-      <button id="reset-items">reset items</button>
+      <button id="reset-items">More items</button>
+      <button id="update-items">Single item</button>
+      </br>
+
+      <!--<button id="reset-items">reset items</button>
       <button id="popup-mode">enable popup mode</button>
       <button id="search-mode">enable search mode</button>
       <button id="disabled-mode">disabled</button>
@@ -146,15 +150,16 @@
 
 
       init();
-      /*document.querySelector('#update-items').addEventListener('click',function(){
+      document.querySelector('#update-items').addEventListener('click',function(){
         const custom = document.getElementById('custom-select');
         custom.options = [
           {
-            key: 1,
-            value: "CIAONE"
+            value: 1,
+            label: "Single value"
           }
         ]
       })
+      /*
       document.querySelector('#popup-mode').addEventListener('click',function(event){
         const custom = document.getElementById('custom-select');
         custom.popup = !custom.popup;
@@ -184,12 +189,12 @@
           event.target.innerHTML = 'disabled';
         }
       })
-
+      */
       document.querySelector('#reset-items').addEventListener('click',function(){
-        init()
+        init();
       })
 
-
+      /*
       document.querySelector('#get-form').addEventListener('click',function(event){
         const form = document.getElementById('form');
 

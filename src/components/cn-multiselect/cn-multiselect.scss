@@ -90,12 +90,24 @@
   /**
   * @prop --cn-multiselect-popup-width: popup width
   */
-  --cn-multiselect-popup-width: 500px;
+  --cn-multiselect-popup-width: 100%;
+
+
+  /**
+  * @prop --cn-multiselect-popup-max-width: popup max width
+  */
+  --cn-multiselect-popup-max-width: 500px;
 
   /**
   * @prop --cn-multiselect-popup-width: popup height
   */
-  --cn-multiselect-popup-height: calc(100vh - 30px);
+  --cn-multiselect-popup-height: 60vh;
+
+
+  /**
+  * @prop --cn-multiselect-popup-overlay-background: popup overlay background
+  */
+  --cn-multiselect-popup-overlay-background: rgba(0,0,0,0.5);
 
 
   /**
@@ -134,7 +146,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    background-color: var(--cn-multiselect-popup-overlay-background); /* Black background with opacity */
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
 
@@ -280,7 +292,6 @@
       padding: 0.25em 0.25em;
       height: 0px;
       visibility: hidden;
-
       .bulks{
         padding-top: 0.25em;
         width: 100%;
@@ -305,13 +316,6 @@
             color: var(--cn-multiselect-bulk-actions-button-color-hover);
           }
         }
-      }
-
-
-
-      &.open{
-        height: auto;
-        visibility: visible;
       }
 
       .content-options{
@@ -403,26 +407,6 @@
 
             /* Input */
             .pure-material-checkbox > input {
-              /*appearance: none;
-              -moz-appearance: none;
-              -webkit-appearance: none;
-              z-index: -1;
-              position: absolute;
-              left: -10px;
-              top: -8px;
-              display: block;
-              margin: 0;
-              border-radius: 50%;
-              width: 40px;
-              height: 40px;
-              background-color: var(--cn-background-color-checkbox);
-              box-shadow: none;
-              outline: none;
-              opacity: 0;
-              transform: scale(1);
-              pointer-events: none;
-              transition: opacity 0.3s, transform 0.2s;*/
-
               appearance: none;
               -moz-appearance: none;
               -webkit-appearance: none;
@@ -574,6 +558,14 @@
         }
       }
 
+      /* Options open*/
+      &.open{
+        height: auto;
+        visibility: visible;
+      }
+
+
+
       &.select-mode{
         .content-options .options-list .cn-option .pure-material-checkbox>span::before {
           margin: 0.1em 0.1em 0.1em 0.1em;
@@ -592,36 +584,21 @@
           border-radius: 50%;
           background: #FFFFFF;
         }
-
-
-
-
-
-
       }
 
       &.popup{
-        &.bulks{
-          .content-options{
-            height: calc(100% - 2em);
-          }
-        }
         position: fixed;
         z-index: 3;
         width: var(--cn-multiselect-popup-width);
+        max-width: var(--cn-multiselect-popup-max-width);
         height: calc(var(--cn-multiselect-popup-height) - 2em) !important;
         top: 50%;
         left: 50%;
-        margin-top:  calc(-1 * var(--cn-multiselect-popup-height)/2.1); /* Negative half of height. */
-        margin-bottom:  calc(-1 * var(--cn-multiselect-popup-height)/2.1); /* Negative half of height. */
-        margin-left: calc(-1 * var(--cn-multiselect-popup-width)/2); /* Negative half of width. */
+        transform: translate(-50%, -50%);
 
-        &.bulks .options-list {
-          max-height: calc(var(--cn-multiselect-popup-height) - 8.2em); /* Altezza con i bottoni */
-        }
-
-        &:not(.bulks) .options-list {
-          max-height: calc(var(--cn-multiselect-popup-height) - 7em); /* Altezza senza i bottoni */
+        @media only screen and (max-width: 600px) {
+          width: 100% !important;
+          height: 100% !important;
         }
 
         .options-list{
@@ -630,6 +607,11 @@
         }
         .search{
           top: 2em;
+        }
+        .list-options{
+          max-height: 100%;
+          height: 100%;
+          padding: 1.8em 0.2em 0.5em;
         }
 
         .popup-header{
@@ -674,29 +656,29 @@
           }
         }
 
-
-        .list-options{
-          max-height: 100%;
-          height: 100%;
-          padding: 1.8em 0.2em 0.5em;
+        &.bulks{
+          .content-options{
+            height: calc(100% - 2em);
+          }
+          .options-list {
+            max-height: calc(var(--cn-multiselect-popup-height) - 8.2em); /* Altezza con i bottoni */
+          }
         }
+
+        &:not(.bulks) .options-list {
+          max-height: calc(var(--cn-multiselect-popup-height) - 7em); /* Altezza senza i bottoni */
+        }
+
         &.searchable{
           .list-options{
             margin-bottom: 1.5em;
             height: calc(100vh - 30px);
           }
         }
+
       }
     }
   }
 }
 
-@media only screen and (max-width: 600px) {
-  :host .container-options .options.popup{
-    width: 100% !important;
-    height: 100% !important;
-    top: 0px !important;
-    left: 0px !important;
-    margin: 0px !important;
-  }
-}
+
