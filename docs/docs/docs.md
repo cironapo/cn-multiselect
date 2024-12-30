@@ -107,6 +107,8 @@ Type: `Promise<void>`
 | `--cn-multiselect-container-selected-items-min-height` | min height container selected items |
 | `--cn-multiselect-font`                                | font family                         |
 | `--cn-multiselect-font-size`                           | font size                           |
+| `--cn-multiselect-popup-max-width`                     | popup max width                     |
+| `--cn-multiselect-popup-overlay-background`            | popup overlay background            |
 | `--cn-multiselect-popup-width`                         | popup width                         |
 
 
