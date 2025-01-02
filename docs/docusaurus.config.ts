@@ -51,7 +51,7 @@ const config: Config = {
   ],
   scripts: [
     {
-      src: 'https://unpkg.com/@cironapo/cn-multiselect@0.1.5/dist/cn-multiselect/cn-multiselect.esm.js',
+      src: 'https://unpkg.com/@cironapo/cn-multiselect@0.1.9/dist/cn-multiselect/cn-multiselect.esm.js',
       type: 'module'
     }
 
