@@ -32,7 +32,7 @@ npm install @cironapo/cn-multiselect
 Alternatively, you can include it directly via a CDN:
 
 ```html
-<script src="https://unpkg.com/@cironapo/cn-multiselect@0.1.9/dist/cn-multiselect/cn-multiselect.esm.js" type="module"></script>
+<script src="https://unpkg.com/@cironapo/cn-multiselect@0.1.11/dist/cn-multiselect/cn-multiselect.esm.js" type="module"></script>
 ```
 
 ---
