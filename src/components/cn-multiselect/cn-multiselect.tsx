@@ -102,7 +102,7 @@ export class CnMultiselect {
   @Prop() popupTitle: string = 'Select option';
 
 
-  forcePopup: boolean = false;
+  @State() forcePopup: boolean = false;
 
 
 
@@ -161,6 +161,7 @@ export class CnMultiselect {
     }else{
       this.forcePopup = false;
     }
+    console.log(this.forcePopup);
 
   }
 
