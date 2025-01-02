@@ -89,14 +89,20 @@ export class CnMultiselect {
   /** (optional) enable search */
   @Prop({ mutable: true }) search: boolean = false;
 
-  /** (optional) popup mode */
+  /** (optional) force popup mode */
   @Prop({ mutable: true }) popup: boolean = false;
+
+  /** (optional) popup breaking point. Enable popup mode below specified window size (in px).*/
+  @Prop({ mutable: true }) popupBreakingPoint: number|undefined;
 
   /** (optional) max selected items  */
   @Prop() maxSelectedItems: number = 0;
 
   /** (optional) popup title  */
   @Prop() popupTitle: string = 'Select option';
+
+
+  forcePopup: boolean = false;
 
 
 
@@ -148,12 +154,25 @@ export class CnMultiselect {
     this.open = false;
   }
 
+  @Listen('resize',{ target: 'window' })
+  resizeHandler(ev: any) {
+    if( this.popupBreakingPoint && this.popupBreakingPoint >= ev.currentTarget.innerWidth ){
+      this.forcePopup = true;
+    }else{
+      this.forcePopup = false;
+    }
+
+  }
+
 
   componentWillLoad() {
     this.disabledItemsWatcher(this.disabledItems);
     this.optionsWatcher(this.options);
     this.selectedWatcher(this.selected);
     this._internals();
+    if( this.popupBreakingPoint && this.popupBreakingPoint >= window.innerWidth ){
+      this.forcePopup = true;
+    }
   }
 
 
@@ -206,7 +225,7 @@ export class CnMultiselect {
     let open_options =  this.open?'options open':'options';
     const search = this.search?this.getSearch(): '';
 
-    if( this.popup ){
+    if( this.popup || this.forcePopup ){
       open_options += " popup";
     }
     if( this.search ){
@@ -221,7 +240,7 @@ export class CnMultiselect {
     return (
 
         <div class={css_class} >
-            {this.popup
+            {(this.popup || this.forcePopup)
                 ? <div class={this.open?'overlay show':'overlay'}></div>
                 :''
             }
@@ -230,7 +249,7 @@ export class CnMultiselect {
             </div>
             <div class="container-options">
               <div class={open_options}>
-               {this.popup
+               {(this.popup || this.forcePopup)
                 ? <div class="popup-header">
                     <span class="title">{this.popupTitle}</span>
                     <span class="close" onClick={() => this.toggleOptions()}></span>

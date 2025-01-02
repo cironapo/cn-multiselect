@@ -46,9 +46,13 @@ export namespace Components {
          */
         "placeholderSearch": string;
         /**
-          * (optional) popup mode
+          * (optional) force popup mode
          */
         "popup": boolean;
+        /**
+          * (optional) popup breaking point. Enable popup mode below specified window size (in px).
+         */
+        "popupBreakingPoint": number|undefined;
         /**
           * (optional) popup title
          */
@@ -166,9 +170,13 @@ declare namespace LocalJSX {
          */
         "placeholderSearch"?: string;
         /**
-          * (optional) popup mode
+          * (optional) force popup mode
          */
         "popup"?: boolean;
+        /**
+          * (optional) popup breaking point. Enable popup mode below specified window size (in px).
+         */
+        "popupBreakingPoint"?: number|undefined;
         /**
           * (optional) popup title
          */
