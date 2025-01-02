@@ -30,24 +30,25 @@ This component will properly format the provided name, even when all fields aren
 
 ## Properties
 
-| Property            | Attribute            | Description                                                           | Type                 | Default              |
-| ------------------- | -------------------- | --------------------------------------------------------------------- | -------------------- | -------------------- |
-| `deselectAllText`   | `deselect-all-text`  | (optional) deselect all text                                          | `string`             | `'Deselect all'`     |
-| `disabled`          | `disabled`           | (optional) disable multiselect                                        | `boolean`            | `false`              |
-| `disabledItems`     | `disabled-items`     | (optional) disabled items                                             | `any[] \| string`    | `undefined`          |
-| `maxSelectedItems`  | `max-selected-items` | (optional) max selected items                                         | `number`             | `0`                  |
-| `multiple`          | `multiple`           | (optional) enable multi values                                        | `boolean`            | `true`               |
-| `name`              | `name`               |                                                                       | `string`             | `undefined`          |
-| `options`           | `options`            | (optional) options                                                    | `Option[] \| string` | `undefined`          |
-| `placeholderSearch` | `placeholder-search` | (optional) search's placeholder                                       | `string`             | `'Search...'`        |
-| `popup`             | `popup`              | (optional) popup mode                                                 | `boolean`            | `false`              |
-| `popupTitle`        | `popup-title`        | (optional) popup title                                                | `string`             | `'Select option'`    |
-| `preserveOrder`     | `preserve-order`     | (optional) preserve order in selected items respect the initial order | `boolean`            | `false`              |
-| `search`            | `search`             | (optional) enable search                                              | `boolean`            | `false`              |
-| `selectAll`         | `select-all`         | (optional) enable select/deselect all items buttons                   | `boolean`            | `false`              |
-| `selectAllText`     | `select-all-text`    | (optional) select all text                                            | `string`             | `'Select all'`       |
-| `selected`          | `selected`           | (optional) selected values                                            | `any[] \| string`    | `undefined`          |
-| `title`             | `title`              | (optional) title                                                      | `string`             | `'Select option...'` |
+| Property             | Attribute              | Description                                                                             | Type                 | Default              |
+| -------------------- | ---------------------- | --------------------------------------------------------------------------------------- | -------------------- | -------------------- |
+| `deselectAllText`    | `deselect-all-text`    | (optional) deselect all text                                                            | `string`             | `'Deselect all'`     |
+| `disabled`           | `disabled`             | (optional) disable multiselect                                                          | `boolean`            | `false`              |
+| `disabledItems`      | `disabled-items`       | (optional) disabled items                                                               | `any[] \| string`    | `undefined`          |
+| `maxSelectedItems`   | `max-selected-items`   | (optional) max selected items                                                           | `number`             | `0`                  |
+| `multiple`           | `multiple`             | (optional) enable multi values                                                          | `boolean`            | `true`               |
+| `name`               | `name`                 |                                                                                         | `string`             | `undefined`          |
+| `options`            | `options`              | (optional) options                                                                      | `Option[] \| string` | `undefined`          |
+| `placeholderSearch`  | `placeholder-search`   | (optional) search's placeholder                                                         | `string`             | `'Search...'`        |
+| `popup`              | `popup`                | (optional) force popup mode                                                             | `boolean`            | `false`              |
+| `popupBreakingPoint` | `popup-breaking-point` | (optional) popup breaking point. Enable popup mode below specified window size (in px). | `number`             | `undefined`          |
+| `popupTitle`         | `popup-title`          | (optional) popup title                                                                  | `string`             | `'Select option'`    |
+| `preserveOrder`      | `preserve-order`       | (optional) preserve order in selected items respect the initial order                   | `boolean`            | `false`              |
+| `search`             | `search`               | (optional) enable search                                                                | `boolean`            | `false`              |
+| `selectAll`          | `select-all`           | (optional) enable select/deselect all items buttons                                     | `boolean`            | `false`              |
+| `selectAllText`      | `select-all-text`      | (optional) select all text                                                              | `string`             | `'Select all'`       |
+| `selected`           | `selected`             | (optional) selected values                                                              | `any[] \| string`    | `undefined`          |
+| `title`              | `title`                | (optional) title                                                                        | `string`             | `'Select option...'` |
 
 
 ## Events
