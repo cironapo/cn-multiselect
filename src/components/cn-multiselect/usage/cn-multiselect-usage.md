@@ -1,5 +1,4 @@
-This component is used to provide a way to greet a user using their first, middle, and last name.
-This component will properly format the provided name, even when all fields aren't provided:
+Here's a quick example of how to use `cn-multiselect`:
 
 ```html
 <cn-mutliselect 
