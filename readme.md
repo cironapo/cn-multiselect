@@ -38,7 +38,7 @@ Alternatively, you can include it directly via a CDN:
 ---
 
 ## Documentation and Examples
-The complete documentation and interactive examples are available at: [https://cironapo.github.io/cn-multiselect/docs](https://cironapo.github.io/cn-multiselect/docs)
+The complete documentation and interactive examples are available at: [https://cironapo.github.io/cn-multiselect/documentation/docs](https://cironapo.github.io/cn-multiselect/documentation/docs)
 
 ---
 
